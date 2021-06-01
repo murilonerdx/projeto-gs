@@ -1,6 +1,6 @@
 package com.fiap.globalsolution.util;
 
-import com.fiap.globalsolution.entities.Hotel;
+import com.fiap.globalsolution.domain.hotel.entity.Hotel;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
