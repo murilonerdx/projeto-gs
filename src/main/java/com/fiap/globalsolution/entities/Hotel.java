@@ -2,7 +2,13 @@ package com.fiap.globalsolution.entities;
 
 import com.fiap.globalsolution.entities.enums.Preco;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="tb_hotel")
 public class Hotel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String code;
     private String name;
@@ -10,6 +16,8 @@ public class Hotel {
     private String image;
     private double price;
     private String category;
+
+    @Transient
     private Preco priceHigth;
     private int rating;
 
