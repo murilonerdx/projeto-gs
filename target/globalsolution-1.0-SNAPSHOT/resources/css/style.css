@@ -1,0 +1,224 @@
+@charset "UTF-8";
+body{
+    background: white;
+    font-family: 'proxima_nova', Arial, Helvetica, Sans, Sans-Serif, 'Sans Serif', serif;
+}
+
+.content{
+    display: flex;
+    margin-top: 150px;
+    align-content: center;
+    justify-content: center;
+}
+
+.dealform {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    max-width: 1012px;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+}
+h2{
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.search-partners{
+    font-size: 14px;
+    line-height: 1.25;
+    text-align: left;
+    color: #37454d;
+    font-weight: 700;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.nav-menu{
+    display: inline-block;
+    justify-content: center;
+}
+.form-card{
+    text-align: center;
+}
+
+.input, .select, .textarea {
+    background-color: transparent;
+    border: 1px solid #9ba2a6;
+    border-radius: 8px;
+    color: #37454d;
+    font-size: 16px;
+    height: 44px;
+    width: 100%;
+}
+
+.input-text {
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    margin: 0em;
+    font: 400 13.3333px Arial;
+    padding: 1px 2px;
+    border-width: 2px;
+    border-style: inset;
+    border-image: initial;
+}
+
+.button{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    margin: 4px 0;
+    vertical-align: middle;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 8px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+    font-weight: 700;
+    height: auto;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+h1{
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.logo-img{
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    padding-right: 0;
+    border: none;
+    margin-right: 0;
+    margin-bottom: 16px;
+}
+
+.search-content{
+    display: inline-block;
+    width: 100%;
+    margin-top: 20px;
+    background-color: #f5f5f6;
+    padding: 40px 0 20px;
+}
+
+.font-trv-maincolor-01 {
+    color: #007fad;
+}
+
+.color-baixo{
+    color: blue;
+}
+
+.color-medio{
+    color: yellowgreen;
+}
+
+.color-alto{
+    color:red;
+}
+dl, ol, ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.destinos{
+    display: flex;
+    margin-left: 250px;
+    padding: 0;
+    background-color: #fff;
+
+}
+
+.search-input{
+    width: 160px;
+}
+
+.texto-principal{
+    border-left: 1px solid #ebeced;
+    margin-left: 16px;
+    padding: 24px 16px 0;
+}
+.texto-subprincipal{
+    flex: 0 1 100%;
+    font-size: 16px;
+    font-weight: 400;
+    display: block;
+    margin-top: 8px;
+}
+
+.conteudo-principal{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    text-align: left;
+    overflow: hidden;
+}
+
+a {
+    display: inline-block;
+    color: #007fad;
+    text-decoration: none;
+}
+
+
+
+
+@media only screen and (min-width: 480px){
+    body {
+        font-size: 12px;
+    }
+}
+
+
+
+
+
+
+
+
+
+

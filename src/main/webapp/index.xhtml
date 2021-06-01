@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/homeStyle.css"/>
+</head>
+<ui:composition template="_template.xhtml">
+    <ui:define name="content">
+        <div class="content">
+            <img class="logo-img" src="resources/img/newgen.svg" alt="New gen Logo"/>
+            <div class="conteudo-principal">
+                <h1 class="texto-principal">Ofertas dos seus sites de reserva favoritos em um só lugar..
+                    <span class="texto-subprincipal">Busque o melhor hotel e mais perto de você!</span>
+                </h1>
+            </div>
+        </div>
+
+        <div class="search-content">
+            <div class="dealform">
+                <div class="ui-inputgroup">
+                    <p:commandButton value="Procurar hotel"/>
+
+                    <p:inputText class="search-input" styleClass="expanded" autocomplete="true"
+                                 placeholder="Digite o nome do hotel"/>
+                </div>
+
+                <p:divider align="left" type="dashed">
+                    <b>Opções</b>
+                </p:divider>
+                <p>Buscar por hoteis e fazer a melhor opção, nós da NEWGEN juntamente com algumas inspirações criamos o HOTEL OPTION, para satisfazer as suas buscar por alguns hoteis entre eles especificamente são</p>
+                <p>
+                    ▪ IBIS Styles São Paulo Anhembi
+                    ▪ Confort Ibirapuera
+                    ▪ Blue Tree Premium Morumbi
+                    ▪ Mercure São Paulo Pamplona
+                    ▪ Sheraton São Paulo WTC Hotel
+                    ▪ Bourbon Convention Ibirapuera
+                    ▪ Blue Tree Preimum Paulista
+                    ▪ Golden Tulip Paulista Plaza e
+                    ▪ Renaissance São Paulo Hotel
+
+                </p>
+                <h2 class="search-partners">Veja quantas hospedagem quiser e entre em contato</h2>
+            </div>
+        </div>
+        <div class="form-card">
+            <div class="destinos">
+                <h2 class="font-trv-maincolor-01">Estes destinos maravilhosos estão a um clique de distância </h2>
+            </div>
+            <p:carousel value="#{carouselView.hotels}" var="hotel" responsive="true">
+                <div class="hotel" style="margin-bottom: 40px;margin-top: 20px;">
+                    <div class="product-grid-item p-p-5">
+                        <div class="product-grid-item-top">
+                            <div>
+                                <i class="pi pi-tag pi-map"/>
+                                <span class="hotel-category" style="margin-bottom: 15px">#{hotel.category}</span>
+                            </div>
+                            <span class="color-#{hotel.priceHigth.name().toLowerCase()}" >#{hotel.priceHigth.text}</span>
+                        </div>
+                        <div class="product-grid-item-content" style="margin-top: 15px">
+                            <img src="#{hotel.image}" alt="Imagem do hotel #{hotel.name}" style="width: 350px;border-radius: 12px; background-repeat: no-repeat;background-attachment: fixed;background-size: cover;background-position: center;"/>
+                            <h3 class="hotel-name">#{hotel.name}</h3>
+                            <span class="hotel-description" style="line-height: 1.5;font-size: 14px;">#{hotel.description}</span>
+                            <p:rating readonly="true" value="#{hotel.rating}" style="margin: 15px;"/>
+                        </div>
+                        <div class="product-grid-item-bottom">
+                            <h:outputText value="#{hotel.price}" styleClass="hotel-price">
+                                <f:convertNumber currencySymbol="R$" type="currency"/>
+                            </h:outputText>
+                            <p:commandButton type="button" value="Visitar hotel"
+                                             icon="pi pi-map"
+                                             disabled="#{hotel.priceHigth == 'ALTO'}" style="margin-left: 20px">
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </div>
+            </p:carousel>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>
