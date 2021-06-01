@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String code;
     private String name;
     private String description;
@@ -21,7 +21,7 @@ public class Hotel {
     private Preco priceHigth;
     private int rating;
 
-    public Hotel(int id, String code, String name, String description, String image, double price, String category, Preco priceHigth, int rating) {
+    public Hotel(Integer id, String code, String name, String description, String image, double price, String category, Preco priceHigth, int rating) {
         this.id = id;
         this.code = code;
         this.name = name;
@@ -52,11 +52,11 @@ public class Hotel {
     public Hotel() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
