@@ -1,12 +1,13 @@
 package com.fiap.globalsolution.domain.usuario.entity;
 
 import com.fiap.globalsolution.domain.hotel.entity.Hotel;
+import com.fiap.globalsolution.domain.reserva.entity.Reserva;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="tb_usuario")
+@Table(name="T_GS_USUARIO")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +15,9 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Reserva> reserva;
 
     @ManyToMany(mappedBy = "usuarios")
     private List<Hotel> hotel;

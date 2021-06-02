@@ -22,7 +22,7 @@ public class CarouselView implements Serializable {
 
     @PostConstruct
     public void init() {
-        hotels = service.getHotels(9);
+        hotels = service.getHotels();
     }
 
     public List<Hotel> getHotels() {

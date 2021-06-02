@@ -9,54 +9,51 @@
 
 <ui:composition template="_template.xhtml">
     <ui:define name="header"></ui:define>
-    <ui:define name="content">
+    <ui:define name="content" class="page login-page" style="height: 100%;">
         <p:messages id="messages"><p:autoUpdate/></p:messages>
-        <h:form>
-            <p:card class="form-card content" style="margin-top: 440px">
-                <f:facet name="title"> Login </f:facet>
-                <div class="p-grid ui-fluid">
-                    <div class="ui-inputgroup">
-                        <span class="ui-inputgroup-addon"><i class="pi pi-envelope"></i></span>
-                        <p:inputText id="email" placeholder="Email" required="true" label="email" size="40"
-                                     requiredMessage="Please enter your email address."
-                                     validatorMessage="Invalid email format"
-                                     value="#{usuarioBean.user.email}">
-
-                            <f:validateRegex
-                                    pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
-                        </p:inputText>
-                        <p:message for="email" display="text"/>
-                        <p:watermark for="email" value="Email Address *"/>
-                        <p:message for="email"/>
-                    </div>
+        <div class="login-clean"
+             style="height: 100%;width: 100%;padding: 100px 0;background: url(resources/img/pexels-gabriel-santos-fotografia-2014700.jpg) no-repeat scroll 30% 45%;-webkit-background-size: cover;-moz-background-size: cover;background-size: cover;-o-background-size: cover;">
+            <h:form method="post" style="background: rgba(54,54,54,0.6);">
+                <h2 class="visually-hidden">Login Form</h2>
+                <div class="illustration"><i class="icon ion-ios-navigate" style="color: rgb(255,255,255);"></i>
                 </div>
+                <div class="mb-3">
+                    <p:inputText class="form-control" style="border-radius: 20px;" id="email" placeholder="Email"
+                                 required="true" label="email" size="40"
+                                 requiredMessage="Please enter your email address."
+                                 validatorMessage="Invalid email format"
+                                 value="#{usuarioBean.user.email}">
 
-                <div style="justify-content: center; align-content: center; text-align: center">
-                    <div class="ui-inputgroup">
-                        <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
-                        <p:inputText id="senha" placeholder="Senha" required="true" label="senha" size="40"
-                                     requiredMessage="Please enter your password"
-                                     validatorMessage="Invalid password format"
-                                     value="#{usuarioBean.user.senha}" type="password">
-
-                        </p:inputText>
-                        <p:message for="senha" display="text"/>
-                        <p:watermark for="senha" value="Enter your password *"/>
-                        <p:message for="senha"/>
-                    </div>
+                        <f:validateRegex
+                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                    </p:inputText>
+                    <p:message for="email" display="text"/>
+                    <p:watermark for="email" value="Email Address *"/>
+                    <p:message for="email"/>
                 </div>
-                <f:facet name="footer">
-                    <p:commandButton icon="pi pi-check" value="Login" action="#{usuarioBean.login}">
+                <div class="mb-3">
+                    <p:inputText class="form-control" style="border-radius: 20px;" id="senha" placeholder="Senha"
+                                 required="true" label="senha" size="40"
+                                 requiredMessage="Please enter your password"
+                                 validatorMessage="Invalid password format"
+                                 value="#{usuarioBean.user.senha}" type="password">
+
+                    </p:inputText>
+                    <p:message for="senha" display="text"/>
+                    <p:watermark for="senha" value="Enter your password *"/>
+                    <p:message for="senha"/>
+                </div>
+                <div class="mb-3">
+                    <p:commandButton class="btn btn-secondary d-block w-100" icon="pi pi-check" value="Login"
+                                     action="#{usuarioBean.login}"
+                                     style="background: rgb(72,72,72);border-radius: 20px;">
                         <f:ajax render="messages" execute="@form"/>
                     </p:commandButton>
-                    <a href="cadastrar.xhtml" style="margin: 5px">Cadastrar um novo Usuario ?</a>
-                </f:facet>
-
-            </p:card>
-
-
-        </h:form>
-
+                    <a class="forgot" href="cadastrar.xhtml"
+                       style="margin: 5px;color: white">Cadastrar um novo Usuario ?</a>
+                </div>
+            </h:form>
+        </div>
 
     </ui:define>
 </ui:composition>

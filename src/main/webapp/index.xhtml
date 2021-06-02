@@ -13,75 +13,136 @@
 </head>
 <ui:composition template="_template.xhtml">
     <ui:define name="content">
-        <div class="content">
-            <img class="logo-img" src="resources/img/newgen.svg" alt="New gen Logo"/>
-            <div class="conteudo-principal">
-                <h1 class="texto-principal">Ofertas dos seus sites de reserva favoritos em um só lugar..
-                    <span class="texto-subprincipal">Busque o melhor hotel e mais perto de você!</span>
-                </h1>
+        <div class="page landing-page" style="margin-top: -72px;">
+            <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center justify-content-xxl-center align-items-xxl-center"
+                 style="height: 680px;background: url(resources/img/04.png) center / cover, #504f4f;">
+                <h1 class="text-center"
+                    style="color: rgb(234,234,234);width: 923.4px;">A acomodação ideal para você. A melhor seleção com a Garantia de Preços. Consigo da reserva à estadia. O nosso apoio ao cliente está sempre disponível para ajudar. </h1>
             </div>
-        </div>
-
-        <div class="search-content">
-            <div class="dealform">
-                <div class="ui-inputgroup">
-                    <p:commandButton value="Procurar hotel"/>
-
-                    <p:inputText class="search-input" styleClass="expanded" autocomplete="true"
-                                 placeholder="Digite o nome do hotel"/>
+            <div class="clean-block clean-info dark" style="padding-top: 100px;padding-bottom: 1px;">
+                <div class="container">
+                    <h1 class="text-center">São Paulo o melhor destino
+                        <span><strong>cultural</strong></span>&nbsp;do Brasil.
+                    </h1>
                 </div>
-
-                <p:divider align="left" type="dashed">
-                    <b>Opções</b>
-                </p:divider>
-                <p>Buscar por hoteis e fazer a melhor opção, nós da NEWGEN juntamente com algumas inspirações criamos o HOTEL OPTION, para satisfazer as suas buscar por alguns hoteis entre eles especificamente são</p>
-                <p>
-                    ▪ IBIS Styles São Paulo Anhembi
-                    ▪ Confort Ibirapuera
-                    ▪ Blue Tree Premium Morumbi
-                    ▪ Mercure São Paulo Pamplona
-                    ▪ Sheraton São Paulo WTC Hotel
-                    ▪ Bourbon Convention Ibirapuera
-                    ▪ Blue Tree Preimum Paulista
-                    ▪ Golden Tulip Paulista Plaza e
-                    ▪ Renaissance São Paulo Hotel
-
-                </p>
-                <h2 class="search-partners">Veja quantas hospedagem quiser e entre em contato</h2>
             </div>
-        </div>
-        <div class="form-card">
-            <div class="destinos">
-                <h2 class="font-trv-maincolor-01">Estes destinos maravilhosos estão a um clique de distância </h2>
-            </div>
-            <p:carousel value="#{carouselView.hotels}" var="hotel" responsive="true">
-                <div class="hotel" style="margin-bottom: 40px;margin-top: 20px;">
-                    <div class="product-grid-item p-p-5">
-                        <div class="product-grid-item-top">
-                            <div>
-                                <i class="pi pi-tag pi-map"/>
-                                <span class="hotel-category" style="margin-bottom: 15px">#{hotel.cidade}</span>
+            <div class="clean-block clean-info dark" style="padding-top: 100px;">
+                <div class="container">
+                    <div class="row d-flex" id="hoteis">
+                        <div class="col-md-12 col-lg-12 col-xl-5 col-xxl-4 offset-lg-0 d-xl-flex d-xxl-flex align-items-xl-center align-items-xxl-center"
+                             style="padding-left: 25px;padding-bottom: 0px;">
+                            <div class="text-start">
+                                <h3 class="d-xxl-flex align-items-xxl-center" style="margin-bottom: 0px;"><i
+                                        class="la la-bed"></i>&nbsp;Hospedagem</h3>
+                                <span>Confira nossos hotéis</span>
+                                <h1 style="padding-top: 67px;">As melhores diárias para sua estadia</h1>
                             </div>
-                            <span class="color-#{hotel.priceHigth.name().toLowerCase()}" >#{hotel.priceHigth.text}</span>
                         </div>
-                        <div class="product-grid-item-content" style="margin-top: 15px">
-                            <img src="#{hotel.image}" alt="Imagem do hotel #{hotel.name}" style="width: 350px;border-radius: 12px; background-repeat: no-repeat;background-attachment: fixed;background-size: cover;background-position: center;"/>
-                            <h3 class="hotel-name">#{hotel.name}</h3>
-                            <span class="hotel-description" style="line-height: 1.5;font-size: 14px;">#{hotel.description}</span>
-                            <p:rating readonly="true" value="#{hotel.rating}" style="margin: 15px;"/>
-                        </div>
-                        <div class="product-grid-item-bottom">
-                            <h:outputText value="#{hotel.price}" styleClass="hotel-price">
-                                <f:convertNumber currencySymbol="R$" type="currency"/>
-                            </h:outputText>
-                            <p:commandButton type="button" value="Visitar hotel"
-                                             icon="pi pi-map"
-                                             disabled="#{hotel.priceHigth == 'ALTO'}" style="margin-left: 20px">
-                            </p:commandButton>
+                        <div class="col" style="margin: 10px">
+                            <p:carousel value="#{carouselView.hotels}" var="hotel"
+                                        style="text-align: center">
+                                <div class="card-group" id="card1">
+                                    <div class="card"
+                                         style="margin: 5px;box-shadow: 2px 2px 7px rgba(33,37,41,0.19);">
+                                        <img class="card-img-top d-block"
+                                             src="#{hotel.image}" width="200px"
+                                             height="200px"
+                                             alt="Image"/>
+                                        <div class="card-body">
+                                            <div style="margin-bottom: 10px;">
+                                                <h4 style="margin-bottom: 0px;">#{hotel.name}</h4>
+
+                                            </div>
+                                            <div class="rating"><p:rating readonly="true" value="#{hotel.rating}"
+                                                                          style="margin: 15px;"/></div>
+                                            <div>
+                                                <div>
+                                                    <span style="font-size: 16px;">#{hotel.description}</span>
+                                                </div>
+                                                <span class="color-#{hotel.priceHigth.name().toLowerCase()}"
+                                                      style="font-size: 20px;">#{hotel.priceHigth.text}</span>
+                                                <h5 style="margin-top: 35px;">Diárias a partir de</h5><span
+                                                    style="font-size: 20px;">R$&nbsp;<span
+                                                    style="font-size: 40px;"><strong>#{hotel.price}</strong></span></span>
+                                            </div>
+                                            <p:commandButton type="button" value="Visitar hotel"
+                                                             icon="pi pi-map"
+                                                             style="margin-left: 20px" hrf="#{hotel.linkHotel}">
+                                            </p:commandButton>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p:carousel>
                         </div>
                     </div>
                 </div>
-            </p:carousel>
+            </div>
+            <div class="clean-block features">
+                <div class="container">
+                    <div class="block-heading">
+                        <h2 class="text-info">Dicas de Hotel</h2>
+                    </div>
+                    <div class="row justify-content-center" style="padding-right: 0px;padding-left: 0px;">
+                        <div class="col-12 col-sm-9 col-md-8 col-lg-9">
+                            <h4>Recentes</h4>
+                            <div class="card-group" id="post">
+                                <div class="card"
+                                     style="margin: 10px;background: rgba(248,249,250,0.3);border-radius: 40px;border-top-left-radius: 40px;">
+                                    <h:form>
+                                        <a href="#"><img
+                                                src="https://www.homehotel.net.br/imagens/dez_dicas_uteis_para_a_limpeza_de_casa_potes.jpg"
+                                                width="300px"
+                                                height="200X"
+                                                style="width: 100%;border-top-left-radius: 40px;border-top-right-radius: 40px;"
+                                                alt="image"/></a>
+                                    </h:form>
+                                    <div class="card-body">
+                                        <h4 class="card-title">O que você pode levar de um hotel ?</h4>
+                                        <p class="card-text">Esses são alguns itens que você pode levar de um hotel, mas olhe sempre antes as regras de cada hotel. Sabonete, shampoo, condicionador, loções e cremes, creme dental, antisséptico bucal e escovas de dente.</p>
+                                    </div>
+                                </div>
+                                <div class="card"
+                                     style="margin: 10px;background: rgba(248,249,250,0.3);border-radius: 40px;border-top-left-radius: 40px;">
+                                    <h:form>
+                                        <a href="#"><img
+                                                src="https://www.bresil.campusfrance.org/sites/pays/files/bresil/oxana-v-524244-unsplash_0.jpg"
+                                                width="300px"
+                                                height="200X"
+                                                style="width: 100%;border-top-left-radius: 40px;border-top-right-radius: 40px;"
+                                                alt="image"/></a>
+                                    </h:form>
+                                    <div class="card-body">
+                                        <h4 class="card-title">Planeje sua estadia.</h4>
+                                        <p class="card-text">Para planejar uma boa estadia é necessario decidir o melhor lugar para ir, definir o seu orçamento corretamente, reservar o hotel/resort com antecedência, e por ultimo planejar um passeio turístico caso tenha</p>
+                                    </div>
+                                </div>
+
+                                <div class="card"
+                                     style="margin: 10px;background: rgba(248,249,250,0.3);border-radius: 40px;border-top-left-radius: 40px;">
+                                    <h:form>
+                                        <a href="#"><img
+                                                src="https://www.umviajante.com.br/wp-content/uploads/2019/01/hotel-tryp-itam-bibi-sao-paulo-002-2.jpg"
+                                                width="300px"
+                                                height="200X"
+                                                style="width: 100%;border-top-left-radius: 40px;border-top-right-radius: 40px;"
+                                                alt="image"/></a>
+                                    </h:form>
+                                    <div class="card-body">
+                                        <h4 class="card-title">Conheça o hotel</h4>
+                                        <p class="card-text">É sempre importante conhecer o hotel, para que você aproveite melhor, tanto eventos, antecipando passeios turisticos, e também para planejar de forma adequada e com melhor conforto para você ou sua familia</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="text-center d-xxl-flex justify-content-xxl-center">
+                        <p:commandButton class="btn btn-outline-secondary" value="Ver mais dicas"/>
+                    </div>
+                </div>
+            </div>
         </div>
     </ui:define>
 </ui:composition>

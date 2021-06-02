@@ -1,6 +1,7 @@
 package com.fiap.globalsolution.domain.hotel.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fiap.globalsolution.domain.reserva.entity.Reserva;
 import com.fiap.globalsolution.domain.usuario.entity.Usuario;
 import com.fiap.globalsolution.domain.enums.Preco;
 
@@ -8,16 +9,20 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="tb_hotel")
+@Table(name="T_GS_HOTEL")
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String description;
+    private String logalizacao;
     private String image;
     private double price;
     private String cidade;
+    private String linkHotel;
+
+    @OneToMany(mappedBy = "hotel")
+    private List<Reserva> reservas;
 
     @ManyToMany()
     @JoinTable(name = "tb_hotel_usuario", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
@@ -28,13 +33,14 @@ public class Hotel {
     private Preco priceHigth;
     private int rating;
 
-    public Hotel(Integer id, String name, String description, String image, double price, String cidade, Preco priceHigth, int rating) {
+    public Hotel(Integer id, String name, String logalizacao, String image, double price, String cidade, Preco priceHigth, int rating, String linkHotel) {
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.logalizacao = logalizacao;
         this.image = image;
         this.price = price;
         this.cidade = cidade;
+        this.linkHotel = linkHotel;
         this.priceHigth = priceHigth;
         this.rating = rating;
     }
@@ -58,6 +64,22 @@ public class Hotel {
     public Hotel() {
     }
 
+    public String getLinkHotel() {
+        return linkHotel;
+    }
+
+    public void setLinkHotel(String linkHotel) {
+        this.linkHotel = linkHotel;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -74,12 +96,12 @@ public class Hotel {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getLogalizacao() {
+        return logalizacao;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setLogalizacao(String description) {
+        this.logalizacao = description;
     }
 
     public String getImage() {
