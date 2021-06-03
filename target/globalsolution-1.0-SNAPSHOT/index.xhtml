@@ -34,7 +34,7 @@
                                 <h1 style="padding-top: 67px;">As melhores diárias para sua estadia</h1>
                             </div>
                         </div>
-                        <div class="col" style="margin: 10px; text-align: center">/
+                        <div class="col" style="margin: 10px; text-align: center">
                             <h:form>
 
                                 <p:carousel value="#{carouselView.hotels}" var="hotel"
@@ -65,7 +65,10 @@
                                                         style="font-size: 20px;">R$&nbsp;<span
                                                         style="font-size: 40px;"><strong>#{hotel.price}</strong></span></span>
                                                 </div>
-                                                <p:commandButton value="NomeDoBotao" ajax="false" action="#{hotel.linkHotel}" onclick="this.form.target='_blank'"></p:commandButton>
+                                                <p:commandButton type="button" value="Visitar hotel"
+                                                                 icon="pi pi-map"
+                                                                 style="margin-left: 20px" >
+                                                </p:commandButton>
                                             </div>
                                         </div>
                                     </div>
