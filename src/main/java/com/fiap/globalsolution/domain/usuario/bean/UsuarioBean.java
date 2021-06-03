@@ -50,6 +50,8 @@ public class UsuarioBean {
         return "login?faces-redirect=true";
     }
 
+
+
     public Usuario getUser() {
         return user;
     }

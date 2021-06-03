@@ -15,7 +15,6 @@ public class CarouselView implements Serializable {
 
     private List<Hotel> hotels;
 
-
     @Inject
     private HotelService service;
 

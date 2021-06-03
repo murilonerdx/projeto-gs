@@ -45,4 +45,10 @@ public class ReservaDao {
         manager.getTransaction().commit();
         manager.clear();
     }
+
+    public int searchByName(String nomeHotel){
+        String jpql = "SELECT COUNT(s) FROM Hotel s WHERE s.name = :nomeHotel";
+        TypedQuery<Hotel> query = manager.createQuery(jpql, Hotel.class).setParameter("nomeHotel",nomeHotel);
+        return query.getSingleResult() != null ? Integer.parseInt(query.getSingleResult().toString()) : 0;
+    }
 }

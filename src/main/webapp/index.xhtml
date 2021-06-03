@@ -40,7 +40,7 @@
                                 <p:carousel value="#{carouselView.hotels}" var="hotel"
                                             rows="3"
                                             responsive="true"
-                                            >
+                                >
                                     <div class="card-group" id="card1">
                                         <div class="card"
                                              style="margin: 5px;box-shadow: 2px 2px 7px rgba(33,37,41,0.19);">
@@ -65,10 +65,13 @@
                                                         style="font-size: 20px;">R$&nbsp;<span
                                                         style="font-size: 40px;"><strong>#{hotel.price}</strong></span></span>
                                                 </div>
-                                                <p:commandButton type="button" value="Visitar hotel"
-                                                                 icon="pi pi-map"
-                                                                 style="margin-left: 20px" >
+
+                                                <p:commandButton value="Reservar hotel" action="/hotel-reserva?faces-redirect=true" icon="pi pi-map"
+                                                                 style="margin-left: 20px">
+                                                    <f:setPropertyActionListener target="#{flash.hotel}"
+                                                                                 value="#{hotel}" />
                                                 </p:commandButton>
+
                                             </div>
                                         </div>
                                     </div>

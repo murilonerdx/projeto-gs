@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+
+<body>
+<ui:composition template="_template.xhtml">
+    <ui:define name="content">
+        <div class="clean-block clean-product dark" style="margin-top: -72px;padding-bottom: 0px;">
+            <div class="container" style="padding-top: 120px;">
+                <div class="block-content">
+                    <div class="product-info">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="gallery"><img class="img-fluid"
+                                                          src="#{reservaUsuario.hotel.image}" alt=""/></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info">
+                                    <h3 style="margin-bottom: 0px;">#{reservaUsuario.hotel.name}</h3><span>#{reservaUsuario.hotel.city}</span>
+                                    <div class="d-flex">
+                                        <div class="col"><span>Total de Reservas: #{reservaUsuario.qtdTotal}</span></div>
+                                    </div>
+                                    <div class="rating"><p:rating readonly="true" value="#{reservaUsuario.hotel.rating}"
+                                                                  style="margin: 15px;"/></div>
+                                    <div class="price">
+                                        <h3>#{reservaUsuario.hotel.price * tratarDataView.quantidadeDias}</h3>
+                                    </div>
+                                    <h:form class="d-flex justify-content-xxl-start align-items-xxl-start">
+                                        <span style="margin-left: 5px;">Data de checkin</span>
+                                        <p:inputText
+                                                class="form-control form-control-lg" type="date"
+                                                style="width: 220px;margin-right: 10px;" value="#{tratarDataView.dataInicial}"/>
+                                        <span style="margin-left: 5px;">Data de checkout</span>
+                                        <p:inputText
+                                            class="form-control form-control-lg"
+                                            type="date"
+                                            style="width: 220px;margin-right: 10px;" value="#{tratarDataView.dataFinal}"/>
+                                        <button class="btn btn-danger btn-sm" type="submit">Reservar</button>
+                                    </h:form>
+                                    <div class="summary">
+                                        <p>#{reservaUsuario.hotel.description}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clean-block clean-product dark"
+             style="margin: 0px;margin-top: -72px;padding: 0px;padding-bottom: 0px;">
+            <div class="container" style="padding-top: 0px;">
+                <div class="block-content">
+                    <div class="product-info">
+                        <div class="row">
+                            <div class="col">
+                                <div class="info">
+                                    <h3 style="margin-bottom: 0px;">Dica do hotel</h3>
+                                    <div class="d-flex" style="margin: 15px;">
+                                        <div class="col">
+                                            <div>
+                                                <h5 class="text-end" style="margin-right: 15px;">Quando ir:</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div></div>
+                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex" style="margin: 15px;">
+                                        <div class="col">
+                                            <div>
+                                                <h5 class="text-end"
+                                                    style="margin-right: 15px;">Temperatura média anual:</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div></div>
+                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex" style="margin: 15px;">
+                                        <div class="col">
+                                            <div>
+                                                <h5 class="text-end" style="margin-right: 15px;">Fuso horário:</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div></div>
+                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex" style="margin: 15px;">
+                                        <div class="col">
+                                            <div>
+                                                <h5 class="text-end"
+                                                    style="margin-right: 15px;">Tempo médio de permanência conforme objetivo, negócios ou passeio:</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div></div>
+                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex" style="margin: 15px;">
+                                        <div class="col">
+                                            <div>
+                                                <h5 class="text-end" style="margin-right: 15px;">Idioma:</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div></div>
+                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex" style="margin: 15px;">
+                                        <div class="col">
+                                            <div>
+                                                <h5 class="text-end"
+                                                    style="margin-right: 15px;">Voltagem e tipo de tomada:</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div></div>
+                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex" style="margin: 15px;">
+                                        <div class="col">
+                                            <div>
+                                                <h5 class="text-end" style="margin-right: 15px;">Moeda:</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div></div>
+                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex" style="margin: 15px;">
+                                        <div class="col">
+                                            <div>
+                                                <h5 class="text-end"
+                                                    style="margin-right: 15px;">Documentos necessários:</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div></div>
+                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex" style="margin: 15px;">
+                                        <div class="col">
+                                            <div>
+                                                <h5 class="text-end" style="margin-right: 15px;">Bagagem:</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div></div>
+                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex" style="margin: 15px;">
+                                        <div class="col">
+                                            <div>
+                                                <h5 class="text-end" style="margin-right: 15px;">Como se locomover:</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div></div>
+                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="map-clean">
+            <div class="container">
+                <div class="intro">
+                    <h3 class="text-center" style="margin-bottom: 0px;">Localização</h3>
+                    <p class="text-center">#{reservaUsuario.hotel.localization}</p>
+                </div>
+            </div>
+            <iframe frameborder="0"
+                    src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyBUs4Gd61yH8ZAc_HDNYADWmc8yDwuo94o&amp;origin=Avenida+paulista&amp;destination=#{reservaUsuario.linkApi}&amp;zoom=13"
+                    width="100%" height="600px"></iframe>
+        </div>
+    </ui:define>
+</ui:composition>
+</body>
+</html>
