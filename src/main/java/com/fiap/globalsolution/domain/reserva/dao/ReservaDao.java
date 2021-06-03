@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ReservaDao {
 
-    private EntityManager manager = EntityManagerFacade.getEntityManager();
+    private final EntityManager manager = EntityManagerFacade.getEntityManager();
 
     public void save(Reserva hotel) {
         manager.getTransaction().begin();

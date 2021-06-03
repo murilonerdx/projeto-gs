@@ -7,10 +7,6 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 >
-<head>
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="resources/css/homeStyle.css"/>
-</head>
 <ui:composition template="_template.xhtml">
     <ui:define name="content">
         <div class="page landing-page" style="margin-top: -72px;">
@@ -38,42 +34,43 @@
                                 <h1 style="padding-top: 67px;">As melhores diárias para sua estadia</h1>
                             </div>
                         </div>
-                        <div class="col" style="margin: 10px">
-                            <p:carousel value="#{carouselView.hotels}" var="hotel"
-                                        style="text-align: center">
-                                <div class="card-group" id="card1">
-                                    <div class="card"
-                                         style="margin: 5px;box-shadow: 2px 2px 7px rgba(33,37,41,0.19);">
-                                        <img class="card-img-top d-block"
-                                             src="#{hotel.image}" width="200px"
-                                             height="200px"
-                                             alt="Image"/>
-                                        <div class="card-body">
-                                            <div style="margin-bottom: 10px;">
-                                                <h4 style="margin-bottom: 0px;">#{hotel.name}</h4>
+                        <div class="col" style="margin: 10px; text-align: center">/
+                            <h:form>
 
-                                            </div>
-                                            <div class="rating"><p:rating readonly="true" value="#{hotel.rating}"
-                                                                          style="margin: 15px;"/></div>
-                                            <div>
-                                                <div>
-                                                    <span style="font-size: 16px;">#{hotel.description}</span>
+                                <p:carousel value="#{carouselView.hotels}" var="hotel"
+                                            rows="3"
+                                            responsive="true"
+                                            >
+                                    <div class="card-group" id="card1">
+                                        <div class="card"
+                                             style="margin: 5px;box-shadow: 2px 2px 7px rgba(33,37,41,0.19);">
+                                            <img class="card-img-top d-block"
+                                                 src="#{hotel.image}" width="200px"
+                                                 height="200px"
+                                                 alt="Image"/>
+                                            <div class="card-body">
+                                                <div style="margin-bottom: 10px;">
+                                                    <h4 style="margin-bottom: 0px;">#{hotel.name}</h4>
+
                                                 </div>
-                                                <span class="color-#{hotel.priceHigth.name().toLowerCase()}"
-                                                      style="font-size: 20px;">#{hotel.priceHigth.text}</span>
-                                                <h5 style="margin-top: 35px;">Diárias a partir de</h5><span
-                                                    style="font-size: 20px;">R$&nbsp;<span
-                                                    style="font-size: 40px;"><strong>#{hotel.price}</strong></span></span>
+                                                <div class="rating"><p:rating readonly="true" value="#{hotel.rating}"
+                                                                              style="margin: 15px;"/></div>
+                                                <div>
+                                                    <div>
+                                                        <span style="font-size: 16px;">#{hotel.description}</span>
+                                                    </div>
+                                                    <span class="color-#{hotel.priceHigth.name().toLowerCase()}"
+                                                          style="font-size: 20px;">#{hotel.priceHigth.text}</span>
+                                                    <h5 style="margin-top: 35px;">Diárias a partir de</h5><span
+                                                        style="font-size: 20px;">R$&nbsp;<span
+                                                        style="font-size: 40px;"><strong>#{hotel.price}</strong></span></span>
+                                                </div>
+                                                <p:commandButton value="NomeDoBotao" ajax="false" action="#{hotel.linkHotel}" onclick="this.form.target='_blank'"></p:commandButton>
                                             </div>
-                                            <p:commandButton type="button" value="Visitar hotel"
-                                                             icon="pi pi-map"
-                                                             style="margin-left: 20px" hrf="#{hotel.linkHotel}">
-                                            </p:commandButton>
                                         </div>
                                     </div>
-                                </div>
-
-                            </p:carousel>
+                                </p:carousel>
+                            </h:form>
                         </div>
                     </div>
                 </div>
@@ -81,7 +78,7 @@
             <div class="clean-block features">
                 <div class="container">
                     <div class="block-heading">
-                        <h2 class="text-info">Dicas de Viagens</h2>
+                        <h2 class="text-info">Dicas de Hotel</h2>
                     </div>
                     <div class="row justify-content-center" style="padding-right: 0px;padding-left: 0px;">
                         <div class="col-12 col-sm-9 col-md-8 col-lg-9">
@@ -137,9 +134,6 @@
                             </div>
                         </div>
 
-                    </div>
-                    <div class="text-center d-xxl-flex justify-content-xxl-center">
-                        <p:commandButton class="btn btn-outline-secondary" value="Ver mais dicas"/>
                     </div>
                 </div>
             </div>

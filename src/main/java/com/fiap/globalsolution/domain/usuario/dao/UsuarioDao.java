@@ -16,7 +16,7 @@ import java.util.Map;
 @ApplicationScoped
 public class UsuarioDao {
 
-    private EntityManager manager = EntityManagerFacade.getEntityManager();
+    private final EntityManager manager = EntityManagerFacade.getEntityManager();
 
     public void save(Usuario user) {
         manager.getTransaction().begin();

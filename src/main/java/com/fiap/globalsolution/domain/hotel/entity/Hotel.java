@@ -1,49 +1,56 @@
 package com.fiap.globalsolution.domain.hotel.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fiap.globalsolution.domain.reserva.entity.Reserva;
-import com.fiap.globalsolution.domain.usuario.entity.Usuario;
 import com.fiap.globalsolution.domain.enums.Preco;
+import com.fiap.globalsolution.domain.reserva.entity.Reserva;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="T_GS_HOTEL")
+@Table(name="tb_hotel")
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String logalizacao;
+    private String localization;
+    private String description;
     private String image;
     private double price;
-    private String cidade;
+    private String city;
     private String linkHotel;
 
-    @OneToMany(mappedBy = "hotel")
+    @ManyToMany(mappedBy = "hotel")
     private List<Reserva> reservas;
-
-    @ManyToMany()
-    @JoinTable(name = "tb_hotel_usuario", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
-    private List<Usuario> usuarios;
 
     @Transient
     @JsonIgnore
     private Preco priceHigth;
     private int rating;
 
-    public Hotel(Integer id, String name, String logalizacao, String image, double price, String cidade, Preco priceHigth, int rating, String linkHotel) {
+    public Hotel(Integer id, String name, String localization, String image, double price, String city, Preco priceHigth, int rating, String linkHotel, String description) {
         this.id = id;
         this.name = name;
-        this.logalizacao = logalizacao;
+        this.localization = localization;
         this.image = image;
         this.price = price;
-        this.cidade = cidade;
+        this.city = city;
         this.linkHotel = linkHotel;
         this.priceHigth = priceHigth;
         this.rating = rating;
+        this.description = description;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
 
     public Preco getPriceHigth() {
         return priceHigth;
@@ -72,14 +79,6 @@ public class Hotel {
         this.linkHotel = linkHotel;
     }
 
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -96,12 +95,12 @@ public class Hotel {
         this.name = name;
     }
 
-    public String getLogalizacao() {
-        return logalizacao;
+    public String getLocalization() {
+        return localization;
     }
 
-    public void setLogalizacao(String description) {
-        this.logalizacao = description;
+    public void setLocalization(String description) {
+        this.localization = description;
     }
 
     public String getImage() {
@@ -120,11 +119,11 @@ public class Hotel {
         this.price = price;
     }
 
-    public String getCidade() {
-        return cidade;
+    public String getCity() {
+        return city;
     }
 
-    public void setCidade(String category) {
-        this.cidade = category;
+    public void setCity(String category) {
+        this.city = category;
     }
 }

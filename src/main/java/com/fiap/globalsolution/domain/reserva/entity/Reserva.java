@@ -2,62 +2,45 @@ package com.fiap.globalsolution.domain.reserva.entity;
 
 import com.fiap.globalsolution.domain.hotel.entity.Hotel;
 import com.fiap.globalsolution.domain.usuario.entity.Usuario;
-import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.List;
 
 @Entity
-@Table(name="T_GS_RESERVA")
+@Table(name="tb_reserva")
 public class Reserva {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="vl_preco_total")
+    @Column(name = "vl_preco_total")
     private Double precoTotal;
 
-    @Column(name="dt_entrada")
+    @Column(name = "dt_entrada")
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar entrada;
 
-    @Column(name="dt_saida")
+    @Column(name = "dt_saida")
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar saida;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private Usuario usuario;
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(name="tb_reserva_hotel",joinColumns = @JoinColumn(name="id_reserva"),inverseJoinColumns = @JoinColumn(name="id_hotel"))
+    private List<Hotel> hotel;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private Hotel hotel;
+    @OneToMany(mappedBy = "reserva", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<Usuario> usuarios;
 
-    public Reserva(Integer id, Double precoTotal, Calendar entrada, Calendar saida, Usuario usuario, Hotel hotel) {
+    public Reserva(Integer id, Double precoTotal, Calendar entrada, Calendar saida) {
         this.id = id;
         this.precoTotal = precoTotal;
         this.entrada = entrada;
         this.saida = saida;
-        this.usuario = usuario;
-        this.hotel = hotel;
     }
 
     public Reserva() {
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
     }
 
     public Integer getId() {
