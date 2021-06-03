@@ -8,7 +8,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class HotelDao {
-    private final EntityManager manager = EntityManagerFacade.getEntityManager();
+    private EntityManager manager = EntityManagerFacade.getEntityManager();
 
     public void save(Hotel hotel) {
         manager.getTransaction().begin();

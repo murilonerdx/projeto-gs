@@ -4,12 +4,14 @@ import com.fiap.globalsolution.domain.hotel.entity.Hotel;
 import com.fiap.globalsolution.domain.usuario.entity.Usuario;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 @Entity
 @Table(name="tb_reserva")
-public class Reserva {
+public class Reserva implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +28,13 @@ public class Reserva {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar saida;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinTable(name="tb_reserva_hotel",joinColumns = @JoinColumn(name="id_reserva"),inverseJoinColumns = @JoinColumn(name="id_hotel"))
-    private List<Hotel> hotel;
+    @ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @JoinTable(name="tb_reserva_hotel", joinColumns = {@JoinColumn(name="reserva_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name="hotel_id", referencedColumnName = "id")})
+    private List<Hotel> hotel = new ArrayList<>();
 
-    @OneToMany(mappedBy = "reserva", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private List<Usuario> usuarios;
+    @ManyToOne()
+    private Usuario usuario;
 
     public Reserva(Integer id, Double precoTotal, Calendar entrada, Calendar saida) {
         this.id = id;
@@ -41,6 +44,22 @@ public class Reserva {
     }
 
     public Reserva() {
+    }
+
+    public List<Hotel> getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(List<Hotel> hotel) {
+        this.hotel = hotel;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Integer getId() {
@@ -74,4 +93,6 @@ public class Reserva {
     public void setSaida(Calendar saida) {
         this.saida = saida;
     }
+
+
 }

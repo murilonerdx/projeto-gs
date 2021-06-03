@@ -1,17 +1,23 @@
 package com.fiap.globalsolution.util;
 
 import com.fiap.globalsolution.domain.reserva.dao.ReservaDao;
+import com.fiap.globalsolution.domain.reserva.entity.Reserva;
+import com.fiap.globalsolution.domain.usuario.dao.UsuarioDao;
+import com.fiap.globalsolution.domain.usuario.entity.Usuario;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Calendar;
 
 @Named
-@ApplicationScoped
+@RequestScoped
 public class ReservaService {
 
-    private ReservaDao dao = new ReservaDao();
+    private UsuarioDao dao = new UsuarioDao();
+    private ReservaDao reservaDao = new ReservaDao();
 
     private int qtdReservas;
 
@@ -19,9 +25,12 @@ public class ReservaService {
 
     @PostConstruct
     public void init(String nomeHotel) {
-        qtdReservas = dao.searchByName(nomeHotel);
+        qtdReservas = reservaDao.searchByName(nomeHotel);
     }
 
+    public void saveReserva(Usuario reserva) {
+        dao.save(reserva);
+    }
 
     public int getQtdReservas() {
         return qtdReservas;

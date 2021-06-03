@@ -5,11 +5,13 @@ import com.fiap.globalsolution.domain.enums.Preco;
 import com.fiap.globalsolution.domain.reserva.entity.Reserva;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name="tb_hotel")
-public class Hotel {
+public class Hotel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,7 +24,7 @@ public class Hotel {
     private String linkHotel;
 
     @ManyToMany(mappedBy = "hotel")
-    private List<Reserva> reservas;
+    private List<Reserva> reservas = new ArrayList<>();
 
     @Transient
     @JsonIgnore
@@ -40,6 +42,14 @@ public class Hotel {
         this.priceHigth = priceHigth;
         this.rating = rating;
         this.description = description;
+    }
+
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
     }
 
     public String getDescription() {

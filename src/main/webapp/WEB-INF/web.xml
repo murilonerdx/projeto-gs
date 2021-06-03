@@ -52,6 +52,10 @@
         <param-name>primefaces.FONT_AWESOME</param-name>
         <param-value>true</param-value>
     </context-param>
+    <context-param>
+        <param-name/>
+        <param-value/>
+    </context-param>
 
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>

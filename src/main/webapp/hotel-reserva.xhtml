@@ -22,26 +22,42 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="info">
-                                    <h3 style="margin-bottom: 0px;">#{reservaUsuario.hotel.name}</h3><span>#{reservaUsuario.hotel.city}</span>
+                                    <h3 style="margin-bottom: 0px;">#{reservaUsuario.hotel.name}</h3>
+                                    <span>#{reservaUsuario.hotel.city}</span>
                                     <div class="d-flex">
-                                        <div class="col"><span>Total de Reservas: #{reservaUsuario.qtdTotal}</span></div>
+                                        <div class="col"><span>Total de Reservas: #{reservaUsuario.qtdTotal}</span>
+                                        </div>
                                     </div>
                                     <div class="rating"><p:rating readonly="true" value="#{reservaUsuario.hotel.rating}"
                                                                   style="margin: 15px;"/></div>
                                     <div class="price">
-                                        <h3>#{reservaUsuario.hotel.price * tratarDataView.quantidadeDias}</h3>
+                                        <h1 style="font-size: 20px">Valor total </h1>
+                                        <strong><h:outputText id="output" style="font-size: 40px;" value="#{reservaUsuario.precoTotal}"/></strong>
                                     </div>
+
                                     <h:form class="d-flex justify-content-xxl-start align-items-xxl-start">
-                                        <span style="margin-left: 5px;">Data de checkin</span>
-                                        <p:inputText
-                                                class="form-control form-control-lg" type="date"
-                                                style="width: 220px;margin-right: 10px;" value="#{tratarDataView.dataInicial}"/>
-                                        <span style="margin-left: 5px;">Data de checkout</span>
-                                        <p:inputText
-                                            class="form-control form-control-lg"
-                                            type="date"
-                                            style="width: 220px;margin-right: 10px;" value="#{tratarDataView.dataFinal}"/>
-                                        <button class="btn btn-danger btn-sm" type="submit">Reservar</button>
+
+
+                                        <p:calendar class="form-control form-control-lg" value="#{reservaUsuario.dataInicial}" style="width: 220px;margin-right: 10px;"
+                                                    mask="99/99/9999"
+                                                    maxlength="10" navigator="true" yearRange="c-99:c+10"
+                                                    requiredMessage="Digite a data do lançamento" size="8"
+                                                    locale="pt_BR" pattern="dd/MM/yyyy">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </p:calendar>
+
+                                        <p:calendar class="form-control form-control-lg" value="#{reservaUsuario.dataFinal}" style="width: 220px;margin-right: 10px;"
+                                                    mask="99/99/9999"
+                                                    maxlength="10" navigator="true" yearRange="c-99:c+10"
+                                                    requiredMessage="Digite a data do lançamento" size="8"
+                                                    locale="pt_BR" pattern="dd/MM/yyyy">
+                                            <f:convertDateTime  pattern="dd/MM/yyyy" />
+                                        </p:calendar>
+
+
+                                        <p:commandButton class="btn btn-danger btn-sm" value="Reservar" action="#{reservaUsuario.salvarReserva}">
+                                            <f:ajax render="messages" execute="@form"/>
+                                        </p:commandButton>
                                     </h:form>
                                     <div class="summary">
                                         <p>#{reservaUsuario.hotel.description}</p>
@@ -122,53 +138,7 @@
                                     <div class="d-flex" style="margin: 15px;">
                                         <div class="col">
                                             <div>
-                                                <h5 class="text-end"
-                                                    style="margin-right: 15px;">Voltagem e tipo de tomada:</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div></div>
-                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex" style="margin: 15px;">
-                                        <div class="col">
-                                            <div>
                                                 <h5 class="text-end" style="margin-right: 15px;">Moeda:</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div></div>
-                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex" style="margin: 15px;">
-                                        <div class="col">
-                                            <div>
-                                                <h5 class="text-end"
-                                                    style="margin-right: 15px;">Documentos necessários:</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div></div>
-                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex" style="margin: 15px;">
-                                        <div class="col">
-                                            <div>
-                                                <h5 class="text-end" style="margin-right: 15px;">Bagagem:</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div></div>
-                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex" style="margin: 15px;">
-                                        <div class="col">
-                                            <div>
-                                                <h5 class="text-end" style="margin-right: 15px;">Como se locomover:</h5>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -197,4 +167,5 @@
     </ui:define>
 </ui:composition>
 </body>
+
 </html>

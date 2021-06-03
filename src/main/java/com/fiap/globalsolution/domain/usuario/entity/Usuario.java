@@ -3,10 +3,13 @@ package com.fiap.globalsolution.domain.usuario.entity;
 import com.fiap.globalsolution.domain.reserva.entity.Reserva;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="tb_usuario")
-public class Usuario {
+public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -14,8 +17,8 @@ public class Usuario {
     private String email;
     private String senha;
 
-    @ManyToOne()
-    private Reserva reserva;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<Reserva> reservas = new ArrayList<>();
 
 
     public Usuario(Integer id, String nome, String email, String senha) {
@@ -23,6 +26,14 @@ public class Usuario {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+    }
+
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
     }
 
     public Usuario() {
