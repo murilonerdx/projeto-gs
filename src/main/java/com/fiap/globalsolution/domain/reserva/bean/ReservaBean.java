@@ -47,8 +47,6 @@ public class ReservaBean {
 
     private double precoTotal;
 
-    private double precoDiaria;
-
     private Hotel hotel;
 
     private int qtdTotal;
@@ -143,29 +141,32 @@ public class ReservaBean {
         this.hotel = hotel;
     }
 
-    public Date getDataInicial() {
+    public Date getDataInicial() throws ParseException {
+
         return dataInicial;
     }
 
-    public double getPrecoDiaria() {
-        return precoDiaria;
-    }
+    public void setDataInicial(Date dataInicial) throws ParseException {
+        qtdDias = 5;
+        precoTotal = qtdDias * hotel.getPrice();
 
-    public void setPrecoDiaria(double precoDiaria) {
-        this.precoDiaria = precoDiaria;
-    }
-
-    public void setDataInicial(Date dataInicial) {
         this.dataInicial = dataInicial;
     }
 
-    public Date getDataFinal() {
+    public Date getDataFinal() throws ParseException {
         return dataFinal;
     }
 
-    public void setDataFinal(Date dataFinal) {
+    public void setDataFinal(Date dataFinal) throws ParseException {
+        qtdDias = 5;
+        precoTotal = qtdDias * hotel.getPrice();
+
         this.dataFinal = dataFinal;
     }
+
+
+
+
 
     public Usuario getUsuario() {
         return usuario;
