@@ -10,7 +10,6 @@
 <head>
     <title>Reservar</title>
 </head>
-<body>
 <ui:composition template="_template.xhtml">
     <ui:define name="content">
         <div class="page landing-page" style="margin-top: -72px;height: 100%;max-height: 100%;">
@@ -21,30 +20,30 @@
                     </div>
                     <div class="text-center d-xxl-flex justify-content-xxl-center">
                         <h:form>
-                            <div class="table-responsive" style="width: 80%;">
+                            <p:dataTable class="table-responsive" style="width: 80%;" id="tbl" var="hotel"
+                                         value="#{hotelBean.listaReservas}">
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Hotel</th>
-                                        <th>Data de Entrada</th>
-                                        <th>Data de Saida</th>
-                                        <th>Valor Total</th>
+                                        <th>#{hotel.id}</th>
+                                        <th>#{hotel.reserva.entrada}</th>
+                                        <th>#{hotel.reserva.saida}</th>
+                                        <th>#{hotel.reserva.precoTotal}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>1</td>
-                                        <td>IBIS Styles São Paulo Anhembi</td>
-                                        <td><p:inputText type="date" value="2021-06-05"/></td>
-                                        <td><p:inputText type="date" value="2021-06-12"/></td>
-                                        <td>R$ 900.00</td>
-                                        <td><p:commandButton value="Deletar" class="fa fa-trash" style="color: var(--bs-red);"/>
+                                        <td>#{hotel.name}</td>
+                                        <td><p:inputText type="date" value="#{hotel.reserva.entrada}"/></td>
+                                        <td><p:inputText type="date" value="#{hotel.reserva.saida}"/></td>
+                                        <td>#{hotel.city}</td>
+                                        <td><p:commandButton value="Deletar" class="fa fa-trash"
+                                                             style="color: var(--bs-red);"/>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
-                            </div>
+                            </p:dataTable>
                         </h:form>
                     </div>
                 </div>
@@ -52,5 +51,4 @@
         </div>
     </ui:define>
 </ui:composition>
-</body>
 </html>

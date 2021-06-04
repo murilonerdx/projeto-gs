@@ -39,6 +39,7 @@ public class ReservaBean {
     private Date minDateTime;
     private Date maxDateTime;
 
+
     private Date dateDe;
     private Date dateTimeDe;
 
@@ -58,27 +59,28 @@ public class ReservaBean {
     private ReservaService service;
 
     @PostConstruct
-    public void init(){
+    public void init() {
+
+
         hotel = (Hotel) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("hotel");
         qtdTotal = service.getQtdReservas();
         linkApi = apiLink();
     }
 
-    public String apiLink(){
-        try{
+    public String apiLink() {
+        try {
             List<String> localizacaoPartes = Arrays.asList(hotel.getLocalization().split(","));
             String primeiraParte = localizacaoPartes.get(0).replace(" ", "+");
             String segundaParte = "2C" + localizacaoPartes.get(1) + "%2C+";
             String terceiraParte = localizacaoPartes.get(2) + "%2C+";
             String quartaParte = localizacaoPartes.get(3);
             return primeiraParte.concat(segundaParte).concat(terceiraParte).concat(quartaParte);
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
         return null;
 
     }
-
 
 
     public String salvarReserva() throws ParseException {
@@ -94,11 +96,11 @@ public class ReservaBean {
         Calendar dt1 = Calendar.getInstance();
         Calendar dt2 = Calendar.getInstance();
         dt1.setTime(sdf.parse(dataInicial1));
-        dt1.add(Calendar.DATE,1);
+        dt1.add(Calendar.DATE, 1);
         dt2.setTime(sdf.parse(dataFinal1));
-        dt2.add(Calendar.DATE,1);
+        dt2.add(Calendar.DATE, 1);
 
-        if(dt2.getTimeInMillis() < dt1.getTimeInMillis()){
+        if (dt2.getTimeInMillis() < dt1.getTimeInMillis()) {
             FacesContext.getCurrentInstance()
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Data final precisa ser maior que a data inicial", "Error when registering"));
         }
@@ -109,13 +111,15 @@ public class ReservaBean {
         reserva.setEntrada(dt1);
         reserva.setSaida(dt2);
         reserva.setPrecoTotal(precoTotal);
-        reserva.getHotel().add(hotel);
+        hotel.setUsuario(usuario);
+        hotel.setReserva(reserva);
+        usuario.getHotels().add(hotel);
         usuario.getReservas().add(reserva);
-        service.saveReserva(usuario);
+        reserva.getHotel().add(hotel);
+        reserva.setUsuario(usuario);
+        service.saveReservaHotel(reserva);
         return "minha-reserva?faces-redirect=true";
     }
-
-
 
     public String getLinkApi() {
         return linkApi;

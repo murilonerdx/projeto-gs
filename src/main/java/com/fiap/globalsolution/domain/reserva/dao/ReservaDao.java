@@ -2,6 +2,7 @@ package com.fiap.globalsolution.domain.reserva.dao;
 
 import com.fiap.globalsolution.domain.hotel.entity.Hotel;
 import com.fiap.globalsolution.domain.reserva.entity.Reserva;
+import com.fiap.globalsolution.domain.usuario.entity.Usuario;
 import com.fiap.globalsolution.singleton.EntityManagerFacade;
 
 import javax.persistence.EntityManager;
@@ -19,11 +20,17 @@ public class ReservaDao {
         manager.clear();
     }
 
-    public List<Reserva> getAll() {
-        String jpql = "SELECT s FROM Reserva s";
-        TypedQuery<Reserva> query = manager.createQuery(jpql, Reserva.class);
+    public List<Hotel> getAllMyReservas(String email) {
+        Usuario usuario = findByEmail(email);
+        String jpql = "SELECT s FROM Hotel s WHERE s.usuario =: id";
+        TypedQuery<Hotel> query = manager.createQuery(jpql, Hotel.class).setParameter("id",usuario.getId());
         return query.getResultList();
+    }
 
+    public Usuario findByEmail(String email){
+        String jpql = "SELECT s FROM Usuario s WHERE s.email = :email";
+        TypedQuery<Usuario> query = manager.createQuery(jpql, Usuario.class).setParameter("email",email);
+        return query.getSingleResult();
     }
 
     public Reserva findById(Integer id){

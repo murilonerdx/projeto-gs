@@ -28,9 +28,7 @@ public class Reserva implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar saida;
 
-    @ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
-    @JoinTable(name="tb_reserva_hotel", joinColumns = {@JoinColumn(name="reserva_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name="hotel_id", referencedColumnName = "id")})
+    @OneToMany(mappedBy = "reserva", cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     private List<Hotel> hotel = new ArrayList<>();
 
     @ManyToOne()
@@ -43,15 +41,15 @@ public class Reserva implements Serializable {
         this.saida = saida;
     }
 
-    public Reserva() {
-    }
-
     public List<Hotel> getHotel() {
         return hotel;
     }
 
     public void setHotel(List<Hotel> hotel) {
         this.hotel = hotel;
+    }
+
+    public Reserva() {
     }
 
     public Usuario getUsuario() {

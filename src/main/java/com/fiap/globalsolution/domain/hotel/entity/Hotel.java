@@ -3,6 +3,7 @@ package com.fiap.globalsolution.domain.hotel.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fiap.globalsolution.domain.enums.Preco;
 import com.fiap.globalsolution.domain.reserva.entity.Reserva;
+import com.fiap.globalsolution.domain.usuario.entity.Usuario;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,21 +11,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="tb_hotel")
+@Table(name = "tb_hotel")
 public class Hotel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String localization;
+    @Column(length = 450)
     private String description;
+    @Column(length = 250)
     private String image;
     private double price;
     private String city;
     private String linkHotel;
 
-    @ManyToMany(mappedBy = "hotel")
-    private List<Reserva> reservas = new ArrayList<>();
+    @ManyToOne()
+    private Usuario usuario;
+
+    @ManyToOne
+    private Reserva reserva;
 
     @Transient
     @JsonIgnore
@@ -44,12 +50,21 @@ public class Hotel implements Serializable {
         this.description = description;
     }
 
-    public List<Reserva> getReservas() {
-        return reservas;
+
+    public Reserva getReserva() {
+        return reserva;
     }
 
-    public void setReservas(List<Reserva> reservas) {
-        this.reservas = reservas;
+    public void setReserva(Reserva reserva) {
+        this.reserva = reserva;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public String getDescription() {
@@ -59,7 +74,6 @@ public class Hotel implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
 
     public Preco getPriceHigth() {

@@ -50,7 +50,7 @@ public class UsuarioDao {
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
 
-        Usuario user = (Usuario) sessionMap.get("seller");
+        Usuario user = (Usuario) sessionMap.get("usuario");
         String emailAtual = user.getEmail();
 
         TypedQuery<Usuario> query = manager.createQuery("SELECT u FROM Usuario u WHERE u.email = :email", Usuario.class)

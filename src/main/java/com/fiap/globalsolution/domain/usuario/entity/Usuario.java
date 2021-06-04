@@ -1,5 +1,6 @@
 package com.fiap.globalsolution.domain.usuario.entity;
 
+import com.fiap.globalsolution.domain.hotel.entity.Hotel;
 import com.fiap.globalsolution.domain.reserva.entity.Reserva;
 
 import javax.persistence.*;
@@ -14,8 +15,12 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    @Column(unique = true)
     private String email;
     private String senha;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    private List<Hotel> hotels = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Reserva> reservas = new ArrayList<>();
@@ -30,6 +35,14 @@ public class Usuario implements Serializable {
 
     public List<Reserva> getReservas() {
         return reservas;
+    }
+
+    public List<Hotel> getHotels() {
+        return hotels;
+    }
+
+    public void setHotels(List<Hotel> hotels) {
+        this.hotels = hotels;
     }
 
     public void setReservas(List<Reserva> reservas) {

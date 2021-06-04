@@ -43,6 +43,7 @@
                                                     maxlength="10" navigator="true" yearRange="c-99:c+10"
                                                     requiredMessage="Digite a data do lançamento" size="8"
                                                     locale="pt_BR" pattern="dd/MM/yyyy">
+                                            <f:ajax event="blur" render="output" />
                                             <f:convertDateTime pattern="dd/MM/yyyy" />
                                         </p:calendar>
 
@@ -52,6 +53,7 @@
                                                     requiredMessage="Digite a data do lançamento" size="8"
                                                     locale="pt_BR" pattern="dd/MM/yyyy">
                                             <f:convertDateTime  pattern="dd/MM/yyyy" />
+                                            <f:ajax event="blur" render="output" />
                                         </p:calendar>
 
 
