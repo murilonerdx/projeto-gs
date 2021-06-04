@@ -147,9 +147,6 @@ public class ReservaBean {
     }
 
     public void setDataInicial(Date dataInicial) throws ParseException {
-        qtdDias = 5;
-        precoTotal = qtdDias * hotel.getPrice();
-
         this.dataInicial = dataInicial;
     }
 
@@ -158,9 +155,6 @@ public class ReservaBean {
     }
 
     public void setDataFinal(Date dataFinal) throws ParseException {
-        qtdDias = 5;
-        precoTotal = qtdDias * hotel.getPrice();
-
         this.dataFinal = dataFinal;
     }
 
