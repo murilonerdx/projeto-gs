@@ -60,10 +60,8 @@ public class ReservaBean {
 
     @PostConstruct
     public void init() {
-
-
         hotel = (Hotel) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("hotel");
-        qtdTotal = service.getQtdReservas();
+        qtdTotal = service.getQtdReservas(hotel.getName());
         linkApi = apiLink();
     }
 
@@ -100,7 +98,7 @@ public class ReservaBean {
         dt2.setTime(sdf.parse(dataFinal1));
         dt2.add(Calendar.DATE, 1);
 
-        if (dt2.getTimeInMillis() < dt1.getTimeInMillis()) {
+        if (dt2.getWeekYear() < dt1.getWeekYear()) {
             FacesContext.getCurrentInstance()
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Data final precisa ser maior que a data inicial", "Error when registering"));
         }

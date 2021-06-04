@@ -19,10 +19,10 @@ public class Usuario implements Serializable {
     private String email;
     private String senha;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Hotel> hotels = new ArrayList<>();
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reserva> reservas = new ArrayList<>();
 
 

@@ -28,7 +28,7 @@ public class Reserva implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar saida;
 
-    @OneToMany(mappedBy = "reserva", cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "reserva", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Hotel> hotel = new ArrayList<>();
 
     @ManyToOne()

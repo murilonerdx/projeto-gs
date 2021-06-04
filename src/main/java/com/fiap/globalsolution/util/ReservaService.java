@@ -18,12 +18,10 @@ import java.util.List;
 @RequestScoped
 public class ReservaService {
 
-    private UsuarioDao dao = new UsuarioDao();
     private ReservaDao reservaDao = new ReservaDao();
 
     private int qtdReservas;
 
-    private Calendar qtdDias;
 
     @PostConstruct
     public void init(String nomeHotel) {
@@ -34,21 +32,28 @@ public class ReservaService {
         reservaDao.save(reserva);
     }
 
-    public int getQtdReservas() {
-        return qtdReservas;
+    public void deleteReserva(Integer id){
+        reservaDao.delete(id);
+    }
+
+    public int getQtdReservas(String name) {
+        return reservaDao.searchByName(name);
     }
 
     public List<Hotel> getMyReservas(String email){
         return reservaDao.getAllMyReservas(email);
     }
 
-
-    public Calendar getQtdDias() {
-        return qtdDias;
+    public ReservaDao getReservaDao() {
+        return reservaDao;
     }
 
-    public void setQtdDias(Calendar qtdDias) {
-        this.qtdDias = qtdDias;
+    public void setReservaDao(ReservaDao reservaDao) {
+        this.reservaDao = reservaDao;
+    }
+
+    public int getQtdReservas() {
+        return qtdReservas;
     }
 
     public void setQtdReservas(int qtdReservas) {

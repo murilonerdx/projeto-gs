@@ -22,7 +22,7 @@ public class ReservaDao {
 
     public List<Hotel> getAllMyReservas(String email) {
         Usuario usuario = findByEmail(email);
-        String jpql = "SELECT s FROM Hotel s WHERE s.usuario =: id";
+        String jpql = "SELECT s from Hotel s WHERE s.usuario.id = :id";
         TypedQuery<Hotel> query = manager.createQuery(jpql, Hotel.class).setParameter("id",usuario.getId());
         return query.getResultList();
     }
@@ -55,7 +55,8 @@ public class ReservaDao {
 
     public int searchByName(String nomeHotel){
         String jpql = "SELECT COUNT(s) FROM Hotel s WHERE s.name = :nomeHotel";
-        TypedQuery<Hotel> query = manager.createQuery(jpql, Hotel.class).setParameter("nomeHotel",nomeHotel);
-        return query.getSingleResult() != null ? Integer.parseInt(query.getSingleResult().toString()) : 0;
+        TypedQuery<Long> q = manager.createQuery(jpql,Long.class).setParameter("nomeHotel",nomeHotel);
+        Long total = q.getSingleResult();
+        return Math.toIntExact(total);
     }
 }

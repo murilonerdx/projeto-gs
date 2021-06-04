@@ -8,7 +8,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 >
 <head>
-    <title>Reservar</title>
+    <title>Minhas reservas</title>
 </head>
 <ui:composition template="_template.xhtml">
     <ui:define name="content">
@@ -18,33 +18,41 @@
                     <div class="block-heading">
                         <h2 class="text-info">Suas Reservas</h2>
                     </div>
-                    <div class="text-center d-xxl-flex justify-content-xxl-center">
-                        <h:form>
-                            <p:dataTable class="table-responsive" style="width: 80%;" id="tbl" var="hotel"
-                                         value="#{hotelBean.listaReservas}">
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>#{hotel.id}</th>
-                                        <th>#{hotel.reserva.entrada}</th>
-                                        <th>#{hotel.reserva.saida}</th>
-                                        <th>#{hotel.reserva.precoTotal}</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>#{hotel.name}</td>
-                                        <td><p:inputText type="date" value="#{hotel.reserva.entrada}"/></td>
-                                        <td><p:inputText type="date" value="#{hotel.reserva.saida}"/></td>
-                                        <td>#{hotel.city}</td>
-                                        <td><p:commandButton value="Deletar" class="fa fa-trash"
-                                                             style="color: var(--bs-red);"/>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </p:dataTable>
-                        </h:form>
+                    <div class="d-xxl-flex justify-content-xxl-center">
+                        <div class="table-responsive" style="width: 90%">
+                            <h:form>
+                                <p:dataTable  var="hotel" value="#{hotelBean.listaReservas}">
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Id"/>
+                                        </f:facet>
+                                        <h:outputText value="#{hotel.id}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Hotel"/>
+                                        </f:facet>
+                                        <h:outputText value="#{hotel.name}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Preço total"/>
+                                        </f:facet>
+                                        <h:outputText value="#{hotel.reserva.precoTotal}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Editar"/>
+                                        </f:facet>
+                                        <h:commandButton value="Deletar" class="btn btn-secondary d-block w-100" icon="pi pi-trash" actionListener="#{hotelBean.deletarReserva(hotel.reserva.id)}"/>
+                                    </p:column>
+                                </p:dataTable >
+                            </h:form>
+                        </div>
                     </div>
                 </div>
             </div>

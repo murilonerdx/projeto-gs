@@ -7,7 +7,10 @@ import com.fiap.globalsolution.domain.usuario.entity.Usuario;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Entity
@@ -51,7 +54,7 @@ public class Hotel implements Serializable {
     }
 
 
-    public Reserva getReserva() {
+    public Reserva getReserva() throws ParseException {
         return reserva;
     }
 
