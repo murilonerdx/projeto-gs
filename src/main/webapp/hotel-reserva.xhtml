@@ -11,6 +11,7 @@
 <body>
 <ui:composition template="_template.xhtml">
     <ui:define name="content">
+        <p:messages id="messages"><p:autoUpdate/></p:messages>
         <div class="clean-block clean-product dark" style="margin-top: -72px;padding-bottom: 0px;">
             <div class="container" style="padding-top: 120px;">
                 <div class="block-content">
@@ -28,36 +29,44 @@
                                         <div class="col"><span>Total de Reservas: #{reservaUsuario.qtdTotal}</span>
                                         </div>
                                     </div>
-                                    <div class="rating"><p:rating readonly="true" value="#{reservaUsuario.hotel.rating}"
+                                    <div class="rating"><p:rating readonly="true"
+                                                                  value="#{reservaUsuario.hotel.rating}"
                                                                   style="margin: 15px;"/></div>
                                     <div class="price">
                                         <h1 style="font-size: 20px">Valor total </h1>
-                                        <strong><h:outputText id="output" style="font-size: 40px;" value="#{reservaUsuario.precoTotal}"/></strong>
+                                        <strong><h:outputText id="output" style="font-size: 40px;"
+                                                              value="#{reservaUsuario.precoTotal}"/></strong>
                                     </div>
 
                                     <h:form class="d-flex justify-content-xxl-start align-items-xxl-start">
 
 
-                                        <p:calendar class="form-control form-control-lg" value="#{reservaUsuario.dataInicial}" style="width: 220px;margin-right: 10px;"
+                                        <p:calendar id="date1" class="form-control form-control-lg"
+                                                    value="#{reservaUsuario.dataInicial}"
+                                                    style="width: 220px;margin-right: 10px;"
                                                     mask="99/99/9999"
                                                     maxlength="10" navigator="true" yearRange="c-99:c+10"
-                                                    requiredMessage="Digite a data do lançamento" size="8"
+                                                    validatorMessage="Digite uma data inicial menor que a data de saidar"
                                                     locale="pt_BR" pattern="dd/MM/yyyy">
-                                            <f:ajax event="blur" render="output"/>
-                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            <p:ajax render="output" event="blur"/>
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
                                         </p:calendar>
+                                        <p:message for="date1"/>
 
-                                        <p:calendar class="form-control form-control-lg" value="#{reservaUsuario.dataFinal}" style="width: 220px;margin-right: 10px;"
+                                        <p:calendar id="date2" class="form-control form-control-lg"
+                                                    value="#{reservaUsuario.dataFinal}"
+                                                    style="width: 220px;margin-right: 10px;"
                                                     mask="99/99/9999"
                                                     maxlength="10" navigator="true" yearRange="c-99:c+10"
-                                                    requiredMessage="Digite a data do lançamento" size="8"
+                                                    validatorMessage="Digite uma data final maior que a data de entrada"
                                                     locale="pt_BR" pattern="dd/MM/yyyy">
-                                            <f:convertDateTime  pattern="dd/MM/yyyy" />
-                                            <f:ajax event="blur" render="output"/>
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            <p:ajax render="output" event="blur"/>
                                         </p:calendar>
+                                        <p:message for="date2"/>
 
-
-                                        <p:commandButton class="btn btn-danger btn-sm" value="Reservar" action="#{reservaUsuario.salvarReserva}">
+                                        <p:commandButton class="btn btn-danger btn-sm" value="Reservar"
+                                                         action="#{reservaUsuario.salvarReserva}">
                                             <f:ajax render="messages" execute="@form"/>
                                         </p:commandButton>
                                     </h:form>

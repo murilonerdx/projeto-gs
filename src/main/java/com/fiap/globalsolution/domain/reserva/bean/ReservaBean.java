@@ -84,7 +84,6 @@ public class ReservaBean {
 
         String dataInicial1 = sdf.format(dataInicial.getTime());
         String dataFinal1 = sdf.format(dataFinal.getTime());
-        System.out.println(dataInicial1 + " " + dataFinal1);
 
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
@@ -96,25 +95,29 @@ public class ReservaBean {
         dt2.setTime(sdf.parse(dataFinal1));
         dt2.add(Calendar.DATE, 1);
 
-        if (dt2.getWeekYear() < dt1.getWeekYear()) {
-            FacesContext.getCurrentInstance()
-                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Data final precisa ser maior que a data inicial", "Error when registering"));
-        }
+
         qtdDias = dt2.get(Calendar.DAY_OF_MONTH) - dt1.get(Calendar.DAY_OF_MONTH);
         precoTotal = hotel.getPrice() * qtdDias;
-        reserva.setId(null);
-        hotel.setId(null);
-        reserva.setEntrada(dt1);
-        reserva.setSaida(dt2);
-        reserva.setPrecoTotal(precoTotal);
-        hotel.setUsuario(usuario);
-        hotel.setReserva(reserva);
-        usuario.getHotels().add(hotel);
-        usuario.getReservas().add(reserva);
-        reserva.getHotel().add(hotel);
-        reserva.setUsuario(usuario);
-        service.saveReservaHotel(reserva);
-        return "minha-reserva?faces-redirect=true";
+        if (getPrecoTotal() < 0) {
+            FacesContext.getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Digite uma data valida", "Error when registering"));
+        }else{
+            reserva.setId(null);
+            hotel.setId(null);
+            reserva.setEntrada(dt1);
+            reserva.setSaida(dt2);
+            reserva.setPrecoTotal(precoTotal);
+            hotel.setUsuario(usuario);
+            hotel.setReserva(reserva);
+            usuario.getHotels().add(hotel);
+            usuario.getReservas().add(reserva);
+            reserva.getHotel().add(hotel);
+            reserva.setUsuario(usuario);
+            service.saveReservaHotel(reserva);
+            return "minha-reserva?faces-redirect=true";
+        }
+        return null;
+
     }
 
     public String getLinkApi() {
@@ -142,7 +145,6 @@ public class ReservaBean {
     }
 
     public Date getDataInicial() throws ParseException {
-
         return dataInicial;
     }
 
@@ -150,13 +152,15 @@ public class ReservaBean {
         this.dataInicial = dataInicial;
     }
 
+    public void setDataFinal(Date dataFinal) throws ParseException {
+        this.dataFinal = dataFinal;
+    }
+
     public Date getDataFinal() throws ParseException {
         return dataFinal;
     }
 
-    public void setDataFinal(Date dataFinal) throws ParseException {
-        this.dataFinal = dataFinal;
-    }
+
 
 
 
