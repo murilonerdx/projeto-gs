@@ -10,8 +10,10 @@ import com.fiap.globalsolution.util.ReservaService;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -84,6 +86,8 @@ public class ReservaBean {
     public String editarReserva() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
+        Integer id = Integer.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id"));
+
 
         String dataInicial1 = sdf.format(dataInicial.getTime());
         String dataFinal1 = sdf.format(dataFinal.getTime());
@@ -105,7 +109,7 @@ public class ReservaBean {
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Digite uma data valida", "Error when registering"));
         } else {
             //TODO: Fazer modificação para pegar id da reserva
-            reserva.setId(hotel.getReservas().get(0).getId());
+            reserva.setId(id);
             reserva.setEntrada(dt1);
             reserva.setSaida(dt2);
             reserva.setPrecoTotal(precoTotal);

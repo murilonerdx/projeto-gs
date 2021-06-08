@@ -47,4 +47,8 @@ public class Reservas {
             e.printStackTrace();
         }
     }
+
+    public String editarReserva(Integer id){
+        return "/hotel-reserva-editar?faces-redirect=true&id=" + id;
+    }
 }
