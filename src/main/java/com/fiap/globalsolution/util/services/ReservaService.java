@@ -1,4 +1,4 @@
-package com.fiap.globalsolution.util;
+package com.fiap.globalsolution.util.services;
 
 import com.fiap.globalsolution.domain.reserva.dao.ReservaDao;
 import com.fiap.globalsolution.domain.reserva.entity.Reserva;
@@ -29,6 +29,12 @@ public class ReservaService {
     public void updateReserva(Reserva reserva){
         reservaDao.update(reserva);
     }
+
+    public Reserva findById(Integer id){
+        return reservaDao.findById(id);
+    }
+
+
 
     public void deleteReserva(Integer id){
         reservaDao.delete(id);

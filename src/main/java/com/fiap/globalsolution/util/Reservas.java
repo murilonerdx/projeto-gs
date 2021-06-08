@@ -2,11 +2,11 @@ package com.fiap.globalsolution.util;
 
 import com.fiap.globalsolution.domain.reserva.entity.Reserva;
 import com.fiap.globalsolution.domain.usuario.entity.Usuario;
+import com.fiap.globalsolution.util.services.ReservaService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.util.List;

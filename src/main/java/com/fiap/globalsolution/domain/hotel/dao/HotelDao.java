@@ -49,4 +49,12 @@ public class HotelDao {
         return hotels.stream().map(HotelDTO::new).collect(Collectors.toList());
     }
 
+    public boolean existHotel(){
+        List<Hotel> listaHotel = getAll();
+        if(listaHotel == null || listaHotel.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
 }

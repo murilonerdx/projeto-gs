@@ -1,77 +1,104 @@
-package com.fiap.globalsolution.util;
+package com.fiap.globalsolution.util.services;
 
 import com.fiap.globalsolution.domain.dica.entity.Dica;
 import com.fiap.globalsolution.domain.endereco.entity.Endereco;
 import com.fiap.globalsolution.domain.enums.Idioma;
 import com.fiap.globalsolution.domain.hotel.dao.HotelDao;
 import com.fiap.globalsolution.domain.enums.Preco;
+import com.fiap.globalsolution.domain.hotel.dto.HotelDTO;
 import com.fiap.globalsolution.domain.hotel.entity.Hotel;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
 
 @Named
 @ApplicationScoped
 public class HotelService {
 
 
+    @Inject
+    private HotelDao dao;
+
     List<Hotel> hotels;
 
     @PostConstruct
     public void init() {
-        //Adicionar todos os hotels, verificar se já existe algum hotel, caso não exista ele executar o script de adicionar hotel, caso exista, ele vai fazer um get all no banco com os hotels
+        if(dao.existHotel()){
+            criarHotels();
+            for(Hotel hotel: getHotels()){
+                dao.save(hotel);
+            }
+        }else{
+            hotels = dao.getAll();
+        }
+
+
+    }
+
+    public void criarHotels(){
         hotels = new ArrayList<>();
 
         //IBIS Styles São Paulo Anhembi
         //"Av. Cruzeiro do Sul, 1709 - Santana, São Paulo - SP, 02031-000"
+        //INSERT INTO dica VALUES(DEFAULT, 25.7, 'Real', 'Primavera', 'Horário Padrão de Brasília(GMT-3)', '120', '100', 'Inglês e Espanhol', '110W e 220W', 'RG e CPF', 'Bagagem de mão e despachada', 'A pé, Carro, moto e transporte público');
         Endereco enderecoIbis = new Endereco("Av. Cruzeiro do Sul","02031-000","Santana","São Paulo","SP",1709);
-        Dica dicaEnderecoIbis = new Dica("Quando quiser",25.00, Idioma.PORTUGUES,"","","","","");
+        Dica dicaEnderecoIbis = new Dica(25.7, "Real", "Primavera", "Horário Padrão de Brasília(GMT-3)", 120, 100, Idioma.INGLES, "110W e 220W", "RG e CPF", "Bagagem de mão e despachada", "A pé, Carro, moto e transporte público");
 
         //Comfort Ibirapuera
         //"Av. Sabiá, 825 - Indianópolis, São Paulo - SP, 04515-001"
+        //INSERT INTO dica VALUES(DEFAULT, 26.4, 'Real', 'Verão', 'Horário Padrão de Brasília(GMT-3)', '120', '180', 'Inglês e Espanhol', '110W e 220W', 'RG e CPF', 'Bagagem de mão e despachada', 'A pé, Carro, moto e transporte público');
         Endereco enderecoComfort = new Endereco("Av. Sabiá","04515-001","Indianópolis","São Paulo","SP",825);
-        Dica dicaEnderecoComfort = new Dica("Quando quiser",25.00, Idioma.PORTUGUES,"","","","","");
+        Dica dicaEnderecoComfort = new Dica(26.4, "Real", "Verão", "Horário Padrão de Brasília(GMT-3)", 120, 180, Idioma.INGLES, "110W e 220W", "RG e CPF", "Bagagem de mão e despachada", "A pé, Carro, moto e transporte público");
 
         //Blue Tree Premium Morumbi
         //"Av. Roque Petroni Júnior, 1000 - Vila Gertrudes, São Paulo - SP, 04707-000"
+        //INSERT INTO dica VALUES(DEFAULT, 25.9, 'Real', 'Primavera', 'Horário Padrão de Brasília(GMT-3)', '80', '60', 'Inglês e Espanhol', '110W e 220W', 'RG e CPF', 'Bagagem de mão e despachada', 'A pé, Carro, moto e transporte público');
         Endereco enderecoBlueTreePremiumMorumbi = new Endereco("Av. Roque Petroni Júnior","04707-000","Vila Gertrudes","São Paulo","SP",1000);
-        Dica dicaEnderecoBlueTreePremiumMorumbi = new Dica("Quando quiser",25.00, Idioma.PORTUGUES,"","","","","");
+        Dica dicaEnderecoBlueTreePremiumMorumbi = new Dica(25.9, "Real", "Primavera", "Horário Padrão de Brasília(GMT-3)", 80, 60, Idioma.INGLES, "110W e 220W", "RG e CPF", "Bagagem de mão e despachada", "A pé, Carro, moto e transporte público");
 
         //Mercure São Paulo Pamplona
         //"R. Pamplona, 1315 - Jardim Paulista, São Paulo - SP, 01405-002"
+        //INSERT INTO dica VALUES(DEFAULT, 26.5, 'Real', 'Primavera', 'Horário Padrão de Brasília(GMT-3)', '120', '100', 'Inglês e Espanhol', '110W e 220W', 'RG e CPF', 'Bagagem de mão e despachada', 'A pé, Carro, moto e transporte público');
         Endereco enderecoMercure = new Endereco("R. Pamplona","01405-002","Jardim Paulista","São Paulo","SP",1315);
-        Dica dicaEnderecoMercure = new Dica("Quando quiser",25.00, Idioma.PORTUGUES,"","","","","");
+        Dica dicaEnderecoMercure = new Dica(26.5, "Real", "Primavera", "Horário Padrão de Brasília(GMT-3)", 120, 100, Idioma.INGLES, "110W e 220W", "RG e CPF", "Bagagem de mão e despachada", "A pé, Carro, moto e transporte público");
 
         //Sheraton São Paulo WTC Hotel
         //"Av. das Nações Unidas, 12559 - Brooklin Novo, São Paulo - SP, 04578-903"
+        //INSERT INTO dica VALUES(DEFAULT, 26.1, 'Real', 'Outono', 'Horário Padrão de Brasília(GMT-3)', '120', '80', 'Inglês e Espanhol', '110W e 220W', 'RG e CPF', 'Bagagem de mão e despachada', 'A pé, Carro, moto e transporte público');
         Endereco enderecoSheraton = new Endereco("Av. das Nações Unidas","","Brooklin Novo","São Paulo","SP",12559);
-        Dica dicaEnderecoSheraton = new Dica("Quando quiser",25.00, Idioma.PORTUGUES,"","","","","");
+        Dica dicaEnderecoSheraton = new Dica(26.1, "Real", "Outono", "Horário Padrão de Brasília(GMT-3)", 120, 80, Idioma.INGLES, "110W e 220W", "RG e CPF", "Bagagem de mão e despachada", "A pé, Carro, moto e transporte público");
 
         //Bourbon Convention Ibirapuera
         //"Av. Ibirapuera, 2927 - Ibirapuera, São Paulo - SP, 04029-200"
+        //INSERT INTO dica VALUES(DEFAULT, 27.1, 'Real', 'Verão', 'Horário Padrão de Brasília(GMT-3)', '110', '160', 'Inglês e Espanhol', '110W e 220W', 'RG e CPF', 'Bagagem de mão e despachada', 'A pé, Carro, moto e transporte público');
         Endereco enderecoBourbon = new Endereco("Av. Ibirapuera","04029-200","Ibirapuera","São Paulo","SP",2927);
-        Dica dicaEnderecoBourbon = new Dica("Quando quiser",25.00, Idioma.PORTUGUES,"","","","","");
+        Dica dicaEnderecoBourbon = new Dica(27.1, "Real", "Verão", "Horário Padrão de Brasília(GMT-3)", 110, 160, Idioma.INGLES, "110W e 220W", "RG e CPF", "Bagagem de mão e despachada", "A pé, Carro, moto e transporte público");
 
         //Blue Tree Premium Paulista
         //"Rua Peixoto Gomide, 707 - Bela Vista, São Paulo - SP, 01409-001"
+        //INSERT INTO dica VALUES(DEFAULT, 26.2, 'Real', 'Primavera', 'Horário Padrão de Brasília(GMT-3)', '180', '60', 'Inglês e Espanhol', '110W e 220W', 'RG e CPF', 'Bagagem de mão e despachada', 'A pé, Carro, moto e transporte público');
         Endereco enderecoBlueTreePremiumPaulista = new Endereco("Rua Peixoto Gomide","01409-001","Bela Vista","São Paulo","SP",707);
-        Dica dicaEnderecoBlueTreePremiumPaulista = new Dica("Quando quiser",25.00, Idioma.PORTUGUES,"","","","","");
+        Dica dicaEnderecoBlueTreePremiumPaulista = new Dica(26.2, "Real", "Primavera", "Horário Padrão de Brasília(GMT-3)", 180, 60, Idioma.INGLES, "110W e 220W", "RG e CPF", "Bagagem de mão e despachada", "A pé, Carro, moto e transporte público");
 
 
 
         //Golden Tulip Paulista Plaza
         //"Alameda Santos, 85 - Jardins, São Paulo - SP, 01419-000"
+        //INSERT INTO dica VALUES(DEFAULT, 26.3, 'Real', 'Verão', 'Horário Padrão de Brasília(GMT-3)', '120', '100', 'Inglês e Espanhol', '110W e 220W', 'RG e CPF', 'Bagagem de mão e despachada', 'A pé, Carro, moto e transporte público');
         Endereco enderecoGolden = new Endereco("Alameda Santos","01419-000","Jardins","São Paulo","SP",85);
-        Dica dicaEnderecoGolden = new Dica("Quando quiser",25.00, Idioma.PORTUGUES,"","","","","");
+        Dica dicaEnderecoGolden = new Dica(26.3, "Real", "Verão", "Horário Padrão de Brasília(GMT-3)", 120, 100, Idioma.INGLES, "110W e 220W", "RG e CPF", "Bagagem de mão e despachada", "A pé, Carro, moto e transporte público");
 
         //Renaissance São Paulo Hotel
         //"Alameda Santos, 2233 - Jardim Paulista, São Paulo - SP, 01419-002"
+        //INSERT INTO dica VALUES(DEFAULT, 26.4, 'Real', 'Verão', 'Horário Padrão de Brasília(GMT-3)', '120', '90', 'Inglês e Espanhol', '110W e 220W', 'RG e CPF', 'Bagagem de mão e despachada', 'A pé, Carro, moto e transporte público');
         Endereco enderecoRenaissance = new Endereco("Alameda Santos","01419-002","Jardim Paulista","","SP",2233);
-        Dica dicaEnderecoRenaissance = new Dica("Quando quiser",25.00, Idioma.PORTUGUES,"","","","","");
+        Dica dicaEnderecoRenaissance = new Dica(26.4, "Real", "Verão", "Horário Padrão de Brasília(GMT-3)", 120, 90, Idioma.INGLES, "110W e 220W", "RG e CPF", "Bagagem de mão e despachada", "A pé, Carro, moto e transporte público");
 
         hotels.add(new Hotel("IBIS Styles São Paulo Anhembi",enderecoIbis,"https://www.revistahoteis.com.br/wp-content/uploads/2015/01/img1409843931.jpeg",355.00,4,"https://all.accor.com/hotel/9596/index.pt-br.shtml","Embarque, literalmente, em uma experiência diferenciada, confortável e com ótima relação custo-benefício no ibis Styles São Paulo Anhembi. Com design moderno e decoração inspirada no tema aviação, o hotel oferece quartos com camas Sweet Bed by Ibis, Wi-Fi grátis e um delicioso café da manhã servido diariamente.",dicaEnderecoIbis));
         hotels.add(new Hotel("Comfort Ibirapuera",enderecoComfort,"https://cf.bstatic.com/images/hotel/max1024x768/202/202264542.jpg",214.00,3,"https://www.atlanticahotels.com.br/hotel/comfort-ibirapuera/","O Comfort Ibirapuera está localizado na Av. Sabiá, esquina com a Av. Ibirapuera, em frente à Igreja de Moema. Além de estar em um centro de compras e lazer, o Comfort Ibirapuera tem fácil acesso para as principais vias da cidade, ao Aeroporto de Congonhas, Centro de Convenções Imigrantes e ao Parque do Ibirapuera.",dicaEnderecoComfort));
@@ -105,5 +132,17 @@ public class HotelService {
             return new ArrayList<>(hotels.subList(0, size));
         }
 
+    }
+
+    public HotelDao getDao() {
+        return dao;
+    }
+
+    public void setDao(HotelDao dao) {
+        this.dao = dao;
+    }
+
+    public void setHotels(List<Hotel> hotels) {
+        this.hotels = hotels;
     }
 }

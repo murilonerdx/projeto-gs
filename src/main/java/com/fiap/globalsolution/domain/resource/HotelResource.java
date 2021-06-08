@@ -24,8 +24,6 @@ public class HotelResource {
         return Response.ok(lista).type(MediaType.APPLICATION_JSON_TYPE).build();
     }
 
-
-
     @GET
     @Path("/{id}")
     public Hotel findById(@PathParam("id") Integer id) {
@@ -62,6 +60,8 @@ public class HotelResource {
         dao.delete(id);
         return Response.status(Response.Status.ACCEPTED).build();
     }
+
+
 
 
 }

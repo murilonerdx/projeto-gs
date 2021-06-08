@@ -18,20 +18,17 @@ public class Dica {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name="ds_quandoIr")
-	private String quandoIr;
-
-	@Column(name="ds_fuso_horario", length = 7)
-	private final String FUSOHORARIO = "GMT-3";
+	@Column(name="ds_fuso_horario", length = 100)
+	private String FUSOHORARIO;
 
 	@Column(name="vl_temperatura")
 	private Double temperatura;
 
 	@Column(name = "tsp_tempoMedio_negocio")
-	private final int TMNEGOCIO = 45 ;
+	private int TMNEGOCIO;
 
 	@Column(name = "tsp_tempoMedio_passeio")
-	private final int TMPASSEIO = 90 ;
+	private int TMPASSEIO;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="ds_idioma", length = 20)
@@ -52,16 +49,19 @@ public class Dica {
 	@Column(name="ds_locomocao")
 	private String locomocao;
 
+	@Column(name="ds_estacao")
+	private String estacao;
+
 	@JsonIgnore
 	@OneToOne(mappedBy = "dica", cascade = CascadeType.PERSIST)
 	private Hotel hotel;
 
 	public Dica() {}
 
-	public Dica(String quandoIr, Double temperatura, Idioma idioma, String voltagemTomada, String moeda,
+
+	public Dica(Double temperatura, String moeda, String estacao, String FUSOHORARIO, int TMNEGOCIO, int TMPASSEIO,Idioma idioma, String voltagemTomada,
 				String documentos, String bagagem, String locomocao) {
 		super();
-		this.quandoIr = quandoIr;
 		this.temperatura = temperatura;
 		this.idioma = idioma;
 		this.voltagemTomada = voltagemTomada;
@@ -69,6 +69,10 @@ public class Dica {
 		this.documentos = documentos;
 		this.bagagem = bagagem;
 		this.locomocao = locomocao;
+		this.estacao = estacao;
+		this.FUSOHORARIO = FUSOHORARIO;
+		this.TMNEGOCIO = TMNEGOCIO;
+		this.TMPASSEIO = TMPASSEIO;
 	}
 
 
@@ -80,12 +84,12 @@ public class Dica {
 		this.id = id;
 	}
 
-	public String getQuandoIr() {
-		return quandoIr;
+	public String getEstacao() {
+		return estacao;
 	}
 
-	public void setQuandoIr(String quandoIr) {
-		this.quandoIr = quandoIr;
+	public void setEstacao(String estacao) {
+		this.estacao = estacao;
 	}
 
 	public Double getTemperatura() {
@@ -163,9 +167,6 @@ public class Dica {
 	public int getTMPASSEIO() {
 		return TMPASSEIO;
 	}
-
-
-
 
 
 

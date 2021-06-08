@@ -67,6 +67,17 @@ public class Hotel {
         this.dica = dica;
     }
 
+    public Hotel(Hotel obj){
+        this.nome = obj.getNome();
+        this.foto =  obj.getFoto();
+        this.preco =  obj.getPreco();
+        this.descricao =  obj.getDescricao();
+        this.rating =  obj.getRating();
+        this.link =  obj.getLink();
+        this.endereco =  obj.getEndereco();
+        this.dica =  obj.getDica();
+    }
+
 
 
     public String getLink() {

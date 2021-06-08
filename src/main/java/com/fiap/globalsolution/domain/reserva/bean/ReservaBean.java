@@ -1,19 +1,16 @@
 package com.fiap.globalsolution.domain.reserva.bean;
 
-import com.fiap.globalsolution.domain.endereco.entity.Endereco;
 import com.fiap.globalsolution.domain.hotel.entity.Hotel;
 import com.fiap.globalsolution.domain.reserva.entity.Reserva;
 import com.fiap.globalsolution.domain.usuario.entity.Usuario;
 import com.fiap.globalsolution.util.DataUtil;
-import com.fiap.globalsolution.util.ReservaService;
+import com.fiap.globalsolution.util.services.ReservaService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -108,13 +105,10 @@ public class ReservaBean {
             FacesContext.getCurrentInstance()
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Digite uma data valida", "Error when registering"));
         } else {
-            //TODO: Fazer modificação para pegar id da reserva
-            reserva.setId(id);
-            reserva.setEntrada(dt1);
-            reserva.setSaida(dt2);
-            reserva.setPrecoTotal(precoTotal);
-            reserva.setUsuario(usuario);
-            reserva.setHotel(hotel);
+            Reserva reservaAtt = service.findById(id);
+            reservaAtt.setEntrada(dt1);
+            reservaAtt.setSaida(dt2);
+            reservaAtt.setPrecoTotal(precoTotal);
             service.updateReserva(reserva);
             return "minha-reserva?faces-redirect=true";
         }
@@ -144,9 +138,7 @@ public class ReservaBean {
             FacesContext.getCurrentInstance()
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Digite uma data valida", "Error when registering"));
         }else{
-
-            hotel.setId(null);
-            hotel.getEndereco().setIdEndereco(null);
+            hotelAtivo.setId(hotel.getId());
             hotelAtivo.setEndereco(hotel.getEndereco());
             hotelAtivo.setDescricao(hotel.getDescricao());
             hotelAtivo.setDica(hotel.getDica());
@@ -163,7 +155,7 @@ public class ReservaBean {
             reserva.setUsuario(usuario);
             hotelAtivo.getReservas().add(reserva);
             usuario.getReserva().add(reserva);
-            service.saveReserva(reserva);
+            service.updateReserva(reserva);
             return "minha-reserva?faces-redirect=true";
         }
         return null;
