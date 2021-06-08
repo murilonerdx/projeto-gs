@@ -47,9 +47,9 @@ public class ReservaDao {
     }
 
     public void delete(Integer id){
-        Reserva obj = findById(id);
+        Reserva reserva = findById(id);
         manager.getTransaction().begin();
-        manager.remove(obj);
+        manager.remove(reserva);
         manager.getTransaction().commit();
         manager.clear();
     }

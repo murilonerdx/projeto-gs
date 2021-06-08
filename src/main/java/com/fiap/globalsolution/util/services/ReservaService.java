@@ -5,6 +5,7 @@ import com.fiap.globalsolution.domain.reserva.entity.Reserva;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
 
@@ -12,7 +13,8 @@ import java.util.List;
 @RequestScoped
 public class ReservaService {
 
-    private ReservaDao reservaDao = new ReservaDao();
+    @Inject
+    private ReservaDao reservaDao;
 
     private int qtdReservas;
 

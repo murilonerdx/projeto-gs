@@ -40,7 +40,7 @@ public class Hotel {
     private String link;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Reserva> reservas = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)

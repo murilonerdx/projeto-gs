@@ -1,5 +1,6 @@
 package com.fiap.globalsolution.domain.reserva.bean;
 
+import com.fiap.globalsolution.domain.hotel.dao.HotelDao;
 import com.fiap.globalsolution.domain.hotel.entity.Hotel;
 import com.fiap.globalsolution.domain.reserva.entity.Reserva;
 import com.fiap.globalsolution.domain.usuario.entity.Usuario;
@@ -40,6 +41,9 @@ public class ReservaBean {
     private Reserva novaReserva;
 
     private Hotel hotel;
+
+    @Inject
+    private HotelDao hotelDao;
 
     private Hotel hotelAtivo;
 
@@ -138,22 +142,13 @@ public class ReservaBean {
             FacesContext.getCurrentInstance()
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Digite uma data valida", "Error when registering"));
         }else{
-            hotelAtivo.setId(hotel.getId());
-            hotelAtivo.setEndereco(hotel.getEndereco());
-            hotelAtivo.setDescricao(hotel.getDescricao());
-            hotelAtivo.setDica(hotel.getDica());
-            hotelAtivo.setLink(hotel.getLink());
-            hotelAtivo.setFoto(hotel.getFoto());
-            hotelAtivo.setNome(hotel.getNome());
-            hotelAtivo.setPreco(hotel.getPreco());
-            hotelAtivo.setRating(hotel.getRating());
-            hotelAtivo.setFoto(hotelAtivo.getFoto());
+            Hotel hotelCriar = hotelDao.findById(hotel.getId());
             reserva.setEntrada(dt1);
             reserva.setSaida(dt2);
             reserva.setPrecoTotal(precoTotal);
-            reserva.setHotel(hotelAtivo);
+            reserva.setHotel(hotelCriar);
             reserva.setUsuario(usuario);
-            hotelAtivo.getReservas().add(reserva);
+            hotelCriar.getReservas().add(reserva);
             usuario.getReserva().add(reserva);
             service.updateReserva(reserva);
             return "minha-reserva?faces-redirect=true";
@@ -284,5 +279,21 @@ public class ReservaBean {
 
     public void setService(ReservaService service) {
         this.service = service;
+    }
+
+    public HotelDao getHotelDao() {
+        return hotelDao;
+    }
+
+    public void setHotelDao(HotelDao hotelDao) {
+        this.hotelDao = hotelDao;
+    }
+
+    public Hotel getHotelAtivo() {
+        return hotelAtivo;
+    }
+
+    public void setHotelAtivo(Hotel hotelAtivo) {
+        this.hotelAtivo = hotelAtivo;
     }
 }

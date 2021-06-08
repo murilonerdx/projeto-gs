@@ -30,6 +30,7 @@ public class Usuario {
     @Column(name = "ds_senha")
     private String senha;
 
+    @Transient
     @Temporal(TemporalType.DATE)
     @Column(name = "dt_nascimento")
     private Calendar dataNascimento;

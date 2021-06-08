@@ -71,7 +71,7 @@ public class HotelService {
         //Sheraton São Paulo WTC Hotel
         //"Av. das Nações Unidas, 12559 - Brooklin Novo, São Paulo - SP, 04578-903"
         //INSERT INTO dica VALUES(DEFAULT, 26.1, 'Real', 'Outono', 'Horário Padrão de Brasília(GMT-3)', '120', '80', 'Inglês e Espanhol', '110W e 220W', 'RG e CPF', 'Bagagem de mão e despachada', 'A pé, Carro, moto e transporte público');
-        Endereco enderecoSheraton = new Endereco("Av. das Nações Unidas","","Brooklin Novo","São Paulo","SP",12559);
+        Endereco enderecoSheraton = new Endereco("Av. das Nações Unidas","04578-903","Brooklin Novo","São Paulo","SP",12559);
         Dica dicaEnderecoSheraton = new Dica(26.1, "Real", "Outono", "Horário Padrão de Brasília(GMT-3)", 120, 80, Idioma.INGLES, "110W e 220W", "RG e CPF", "Bagagem de mão e despachada", "A pé, Carro, moto e transporte público");
 
         //Bourbon Convention Ibirapuera
@@ -97,7 +97,7 @@ public class HotelService {
         //Renaissance São Paulo Hotel
         //"Alameda Santos, 2233 - Jardim Paulista, São Paulo - SP, 01419-002"
         //INSERT INTO dica VALUES(DEFAULT, 26.4, 'Real', 'Verão', 'Horário Padrão de Brasília(GMT-3)', '120', '90', 'Inglês e Espanhol', '110W e 220W', 'RG e CPF', 'Bagagem de mão e despachada', 'A pé, Carro, moto e transporte público');
-        Endereco enderecoRenaissance = new Endereco("Alameda Santos","01419-002","Jardim Paulista","","SP",2233);
+        Endereco enderecoRenaissance = new Endereco("Alameda Santos","01419-002","Jardim Paulista","São Paulo","SP",2233);
         Dica dicaEnderecoRenaissance = new Dica(26.4, "Real", "Verão", "Horário Padrão de Brasília(GMT-3)", 120, 90, Idioma.INGLES, "110W e 220W", "RG e CPF", "Bagagem de mão e despachada", "A pé, Carro, moto e transporte público");
 
         hotels.add(new Hotel("IBIS Styles São Paulo Anhembi",enderecoIbis,"https://www.revistahoteis.com.br/wp-content/uploads/2015/01/img1409843931.jpeg",355.00,4,"https://all.accor.com/hotel/9596/index.pt-br.shtml","Embarque, literalmente, em uma experiência diferenciada, confortável e com ótima relação custo-benefício no ibis Styles São Paulo Anhembi. Com design moderno e decoração inspirada no tema aviação, o hotel oferece quartos com camas Sweet Bed by Ibis, Wi-Fi grátis e um delicioso café da manhã servido diariamente.",dicaEnderecoIbis));

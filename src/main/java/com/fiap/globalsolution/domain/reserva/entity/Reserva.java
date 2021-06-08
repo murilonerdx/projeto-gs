@@ -34,7 +34,7 @@ public class Reserva {
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "id_hotel")
 	private Hotel hotel;
 
@@ -104,6 +104,9 @@ public class Reserva {
 	public void setSaida(Calendar saida) {
 		this.saida = saida;
 	}
+
+
+
 
 
 
