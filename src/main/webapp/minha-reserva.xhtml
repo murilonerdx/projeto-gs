@@ -21,34 +21,64 @@
                     <div class="d-xxl-flex justify-content-xxl-center">
                         <div class="table-responsive" style="width: 90%">
                             <h:form>
-                                <p:dataTable  var="hotel" value="#{hotelBean.listaReservas}">
+                                <p:dataTable  var="reserva" value="#{reservaLista.listaReservas}">
 
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="Id"/>
                                         </f:facet>
-                                        <h:outputText value="#{hotel.id}"/>
+                                        <h:outputText value="#{reserva.id}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Nome do hotel"/>
+                                        </f:facet>
+                                        <h:outputText value="#{reserva.hotel.nome}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Data entrada"/>
+                                        </f:facet>
+                                        <p:calendar value="#{reserva.entrada.getTime()}" disabled="true">
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        </p:calendar>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Data saida"/>
+                                        </f:facet>
+                                        <p:calendar value="#{reserva.saida.getTime()}" disabled="true">
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        </p:calendar>
                                     </p:column>
 
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="Hotel"/>
                                         </f:facet>
-                                        <h:outputText value="#{hotel.name}"/>
+                                        <h:outputText value="#{reserva.hotel.preco}"/>
                                     </p:column>
 
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="Preço total"/>
                                         </f:facet>
-                                        <h:outputText value="#{hotel.reserva.precoTotal}"/>
+                                        <h:outputText value="#{reserva.precoTotal}"/>
                                     </p:column>
 
                                     <p:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Editar"/>
+                                            <h:outputText value="Ações"/>
                                         </f:facet>
-                                        <h:commandButton value="Deletar" class="btn btn-secondary d-block w-100" icon="pi pi-trash" actionListener="#{hotelBean.deletarReserva(hotel.reserva.id)}"/>
+                                        <h:commandButton value="Deletar" class="btn btn-secondary d-block w-100" actionListener="#{reservaLista.deletarReserva(reserva.hotel.id)}"/>
+                                        <p:commandButton value="Editar" class="btn btn-warning d-block w-100" action="/hotel-reserva-editar?faces-redirect=true"
+                                                         style="margin-top: 10px">
+                                            <f:setPropertyActionListener target="#{flash.hotel}"
+                                                                         value="#{reserva.hotel}" />
+                                        </p:commandButton>
                                     </p:column>
                                 </p:dataTable >
                             </h:form>

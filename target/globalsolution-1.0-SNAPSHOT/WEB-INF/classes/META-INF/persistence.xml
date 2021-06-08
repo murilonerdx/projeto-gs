@@ -6,6 +6,9 @@
         <class>com.fiap.globalsolution.domain.hotel.entity.Hotel</class>
         <class>com.fiap.globalsolution.domain.usuario.entity.Usuario</class>
         <class>com.fiap.globalsolution.domain.reserva.entity.Reserva</class>
+        <class>com.fiap.globalsolution.domain.dica.entity.Dica</class>
+        <class>com.fiap.globalsolution.domain.endereco.entity.Endereco</class>
+
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.jdbc.driver"

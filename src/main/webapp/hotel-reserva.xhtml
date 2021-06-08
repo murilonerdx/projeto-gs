@@ -19,30 +19,29 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="gallery"><img class="img-fluid"
-                                                          src="#{reservaUsuario.hotel.image}" alt=""/></div>
+                                                          src="#{reservaBean.hotel.foto}" alt=""/></div>
                             </div>
                             <div class="col-md-6">
                                 <div class="info">
-                                    <h3 style="margin-bottom: 0px;">#{reservaUsuario.hotel.name}</h3>
-                                    <span>#{reservaUsuario.hotel.city}</span>
+                                    <h3 style="margin-bottom: 0px;">#{reservaBean.hotel.nome}</h3>
                                     <div class="d-flex">
-                                        <div class="col"><span>Total de Reservas: #{reservaUsuario.qtdTotal}</span>
+                                        <div class="col"><span>Total de Reservas: #{reservaBean.qtdTotal}</span>
                                         </div>
                                     </div>
                                     <div class="rating"><p:rating readonly="true"
-                                                                  value="#{reservaUsuario.hotel.rating}"
+                                                                  value="#{reservaBean.hotel.rating}"
                                                                   style="margin: 15px;"/></div>
                                     <div class="price">
                                         <h1 style="font-size: 20px">Valor total </h1>
                                         <strong><h:outputText id="output" style="font-size: 40px;"
-                                                              value="#{reservaUsuario.precoTotal}"/></strong>
+                                                              value="#{reservaBean.precoTotal}"/></strong>
                                     </div>
 
                                     <h:form class="d-flex justify-content-xxl-start align-items-xxl-start">
 
 
                                         <p:calendar id="date1" class="form-control form-control-lg"
-                                                    value="#{reservaUsuario.dataInicial}"
+                                                    value="#{reservaBean.dataInicial}"
                                                     style="width: 220px;margin-right: 10px;"
                                                     mask="99/99/9999"
                                                     maxlength="10" navigator="true" yearRange="c-99:c+10"
@@ -54,7 +53,7 @@
                                         <p:message for="date1"/>
 
                                         <p:calendar id="date2" class="form-control form-control-lg"
-                                                    value="#{reservaUsuario.dataFinal}"
+                                                    value="#{reservaBean.dataFinal}"
                                                     style="width: 220px;margin-right: 10px;"
                                                     mask="99/99/9999"
                                                     maxlength="10" navigator="true" yearRange="c-99:c+10"
@@ -66,12 +65,12 @@
                                         <p:message for="date2"/>
 
                                         <p:commandButton class="btn btn-danger btn-sm" value="Reservar"
-                                                         action="#{reservaUsuario.salvarReserva}">
+                                                         action="#{reservaBean.salvarReserva}">
                                             <f:ajax render="messages" execute="@form"/>
                                         </p:commandButton>
                                     </h:form>
                                     <div class="summary">
-                                        <p>#{reservaUsuario.hotel.description}</p>
+                                        <p>#{reservaBean.hotel.descricao}</p>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +96,7 @@
                                         </div>
                                         <div class="col">
                                             <div></div>
-                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
+                                            <p class="text-start" style="margin-left: 15px;">#{reservaBean.hotel.dica.quandoIr}</p>
                                         </div>
                                     </div>
                                     <div class="d-flex" style="margin: 15px;">
@@ -109,30 +108,18 @@
                                         </div>
                                         <div class="col">
                                             <div></div>
-                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
+                                            <p class="text-start" style="margin-left: 15px;">#{reservaBean.hotel.dica.temperatura}</p>
                                         </div>
                                     </div>
                                     <div class="d-flex" style="margin: 15px;">
                                         <div class="col">
                                             <div>
-                                                <h5 class="text-end" style="margin-right: 15px;">Fuso horário:</h5>
+                                                <h5 class="text-end" style="margin-right: 15px;">Documentos</h5>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div></div>
-                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex" style="margin: 15px;">
-                                        <div class="col">
-                                            <div>
-                                                <h5 class="text-end"
-                                                    style="margin-right: 15px;">Tempo médio de permanência conforme objetivo, negócios ou passeio:</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div></div>
-                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
+                                            <p class="text-start" style="margin-left: 15px;">#{reservaBean.hotel.dica.documentos}</p>
                                         </div>
                                     </div>
                                     <div class="d-flex" style="margin: 15px;">
@@ -143,7 +130,7 @@
                                         </div>
                                         <div class="col">
                                             <div></div>
-                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
+                                            <p class="text-start" style="margin-left: 15px;">#{reservaBean.hotel.dica.idioma}</p>
                                         </div>
                                     </div>
                                     <div class="d-flex" style="margin: 15px;">
@@ -154,7 +141,7 @@
                                         </div>
                                         <div class="col">
                                             <div></div>
-                                            <p class="text-start" style="margin-left: 15px;">Paragraph</p>
+                                            <p class="text-start" style="margin-left: 15px;">#{reservaBean.hotel.dica.moeda}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -168,11 +155,11 @@
             <div class="container">
                 <div class="intro">
                     <h3 class="text-center" style="margin-bottom: 0px;">Localização</h3>
-                    <p class="text-center">#{reservaUsuario.hotel.localization}</p>
+                    <p class="text-center">#{reservaBean.enderecoCompleto}</p>
                 </div>
             </div>
             <iframe frameborder="0"
-                    src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyBUs4Gd61yH8ZAc_HDNYADWmc8yDwuo94o&amp;origin=Avenida+paulista&amp;destination=#{reservaUsuario.linkApi}&amp;zoom=13"
+                    src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyBUs4Gd61yH8ZAc_HDNYADWmc8yDwuo94o&amp;origin=Avenida+paulista&amp;destination=#{reservaBean.linkApi}&amp;zoom=13"
                     width="100%" height="600px"></iframe>
         </div>
     </ui:define>

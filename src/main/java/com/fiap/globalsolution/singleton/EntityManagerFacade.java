@@ -9,7 +9,6 @@ public abstract class EntityManagerFacade {
     public static EntityManager getEntityManager() {
         EntityManagerFactory factory =
                 Persistence.createEntityManagerFactory("mysql");
-
         return factory.createEntityManager();
     }
 

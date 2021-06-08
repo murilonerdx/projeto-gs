@@ -1,7 +1,7 @@
 package com.fiap.globalsolution.domain.hotel.dao;
 
-import com.fiap.globalsolution.singleton.EntityManagerFacade;
 import com.fiap.globalsolution.domain.hotel.entity.Hotel;
+import com.fiap.globalsolution.singleton.EntityManagerFacade;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;

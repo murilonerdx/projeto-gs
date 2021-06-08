@@ -1,55 +1,85 @@
 package com.fiap.globalsolution.domain.usuario.entity;
 
-import com.fiap.globalsolution.domain.hotel.entity.Hotel;
+import com.fiap.globalsolution.domain.endereco.entity.Endereco;
 import com.fiap.globalsolution.domain.reserva.entity.Reserva;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.*;
+
 @Entity
-@Table(name="tb_usuario")
-public class Usuario implements Serializable {
+@Table(name = "TB_GS_USUARIO")
+public class Usuario {
+
     @Id
+    @Column(name = "id_usuario")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "nm_nome")
     private String nome;
-    @Column(unique = true)
+
+    @Column(name = "ds_email")
     private String email;
+
+    @Column(name = "ds_senha")
     private String senha;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Hotel> hotels = new ArrayList<>();
+    @Temporal(TemporalType.DATE)
+    @Column(name = "dt_nascimento")
+    private Calendar dataNascimento;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Reserva> reservas = new ArrayList<>();
 
+    public void addReserva(Reserva reserva) {
+        if (reservas == null)
+            reservas = new ArrayList<>();
+        //Adicionar o aluno no grupo (Lista)
+        reservas.add(reserva);
+        //Setar o grupo no aluno (Mapeia a FK, para inserir no banco)
+        reserva.setUsuario(this); //this referência ao próprio objeto
+    }
 
-    public Usuario(Integer id, String nome, String email, String senha) {
-        this.id = id;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Endereco endereco;
+
+    public Usuario() {
+    }
+
+    public Usuario(String nome, String email, String senha, Calendar dataNascimento, Endereco endereco) {
+        super();
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.dataNascimento = dataNascimento;
+        this.endereco = endereco;
     }
 
-    public List<Reserva> getReservas() {
+    public Calendar getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Calendar dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public List<Reserva> getReserva() {
         return reservas;
     }
 
-    public List<Hotel> getHotels() {
-        return hotels;
+    public void setReserva(List<Reserva> reserva) {
+        this.reservas = reserva;
     }
 
-    public void setHotels(List<Hotel> hotels) {
-        this.hotels = hotels;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setReservas(List<Reserva> reservas) {
-        this.reservas = reservas;
-    }
-
-    public Usuario() {
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     public Integer getId() {

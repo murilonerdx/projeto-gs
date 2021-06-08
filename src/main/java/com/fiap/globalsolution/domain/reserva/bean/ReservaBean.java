@@ -1,11 +1,11 @@
 package com.fiap.globalsolution.domain.reserva.bean;
 
+import com.fiap.globalsolution.domain.endereco.entity.Endereco;
 import com.fiap.globalsolution.domain.hotel.entity.Hotel;
-import com.fiap.globalsolution.domain.reserva.dao.ReservaDao;
 import com.fiap.globalsolution.domain.reserva.entity.Reserva;
 import com.fiap.globalsolution.domain.usuario.entity.Usuario;
+import com.fiap.globalsolution.util.DataUtil;
 import com.fiap.globalsolution.util.ReservaService;
-import org.hibernate.service.spi.InjectService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -14,10 +14,9 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Period;
 import java.util.*;
 
-@ManagedBean(name = "reservaUsuario")
+@ManagedBean(name = "reservaBean")
 @ViewScoped
 public class ReservaBean {
 
@@ -39,6 +38,7 @@ public class ReservaBean {
     private Date minDateTime;
     private Date maxDateTime;
 
+    List<Reserva> reservas;
 
     private Date dateDe;
     private Date dateTimeDe;
@@ -47,7 +47,12 @@ public class ReservaBean {
 
     private double precoTotal;
 
+    private String enderecoCompleto;
+
+    private Reserva novaReserva;
+
     private Hotel hotel;
+
 
     private int qtdTotal;
 
@@ -58,19 +63,19 @@ public class ReservaBean {
 
     @PostConstruct
     public void init() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
+        usuario = (Usuario) sessionMap.get("usuario");
         hotel = (Hotel) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("hotel");
-        qtdTotal = service.getQtdReservas(hotel.getName());
+        qtdTotal = service.getQtdReservas(hotel.getNome());
         linkApi = apiLink();
     }
 
     public String apiLink() {
         try {
-            List<String> localizacaoPartes = Arrays.asList(hotel.getLocalization().split(","));
-            String primeiraParte = localizacaoPartes.get(0).replace(" ", "+");
-            String segundaParte = "2C" + localizacaoPartes.get(1) + "%2C+";
-            String terceiraParte = localizacaoPartes.get(2) + "%2C+";
-            String quartaParte = localizacaoPartes.get(3);
-            return primeiraParte.concat(segundaParte).concat(terceiraParte).concat(quartaParte);
+            //Av. Cruzeiro+do+Sul%2C+1709+-+Santana%2C+S%C3%A3o+Paulo+-+SP%2C+02031-000
+            enderecoCompleto = "Rua: " + hotel.getEndereco().getRua() + ", " + hotel.getEndereco().getNumero() + " - " + hotel.getEndereco().getBairro() + ", " + hotel.getEndereco().getCidade() + " - " + hotel.getEndereco().getCep();
+            return hotel.getEndereco().getRua().replace(" ", "+") + "%2C" + hotel.getEndereco().getNumero() + "+-+" + hotel.getEndereco().getBairro() + "%2C+" + hotel.getEndereco().getCidade() + "+-+%2C+" + hotel.getEndereco().getCep();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -78,42 +83,76 @@ public class ReservaBean {
 
     }
 
-
-    public String salvarReserva() throws ParseException {
+    public String editarReserva() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
 
         String dataInicial1 = sdf.format(dataInicial.getTime());
         String dataFinal1 = sdf.format(dataFinal.getTime());
 
-        FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
-        usuario = (Usuario) sessionMap.get("usuario");
         Calendar dt1 = Calendar.getInstance();
         Calendar dt2 = Calendar.getInstance();
+
         dt1.setTime(sdf.parse(dataInicial1));
-        dt1.add(Calendar.DATE, 1);
         dt2.setTime(sdf.parse(dataFinal1));
-        dt2.add(Calendar.DATE, 1);
+
+        dt1.add(Calendar.DAY_OF_MONTH, 1);
+        dt2.add(Calendar.DAY_OF_MONTH, 1);
 
 
-        qtdDias = dt2.get(Calendar.DAY_OF_MONTH) - dt1.get(Calendar.DAY_OF_MONTH);
-        precoTotal = hotel.getPrice() * qtdDias;
+        precoTotal = DataUtil.calculaDias(dt1, dt2, hotel.getPreco());
+
         if (getPrecoTotal() < 0) {
             FacesContext.getCurrentInstance()
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Digite uma data valida", "Error when registering"));
-        }else{
-            reserva.setId(null);
-            hotel.setId(null);
+        } else {
+            //TODO: Fazer modificação para pegar id da reserva
             reserva.setEntrada(dt1);
             reserva.setSaida(dt2);
             reserva.setPrecoTotal(precoTotal);
-            hotel.setUsuario(usuario);
-            hotel.setReserva(reserva);
-            usuario.getHotels().add(hotel);
-            usuario.getReservas().add(reserva);
-            reserva.getHotel().add(hotel);
+            service.updateReserva(reserva);
+            return "minha-reserva?faces-redirect=true";
+        }
+        return null;
+
+    }
+
+    public String salvarReserva() throws ParseException {
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+
+        String dataInicial1 = sdf.format(dataInicial.getTime());
+        String dataFinal1 = sdf.format(dataFinal.getTime());
+
+        Calendar dt1 = Calendar.getInstance();
+        Calendar dt2 = Calendar.getInstance();
+
+        dt1.setTime(sdf.parse(dataInicial1));
+        dt2.setTime(sdf.parse(dataFinal1));
+
+        dt1.add(Calendar.DAY_OF_MONTH, 1);
+        dt2.add(Calendar.DAY_OF_MONTH, 1);
+
+
+        precoTotal = DataUtil.calculaDias(dt1, dt2, hotel.getPreco());
+
+        if (getPrecoTotal() < 0) {
+            FacesContext.getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Digite uma data valida", "Error when registering"));
+        } else {
+
+
+            reserva.setEntrada(dt1);
+            reserva.setSaida(dt2);
+            reserva.setPrecoTotal(precoTotal);
+            reserva.setHotel(hotel);
             reserva.setUsuario(usuario);
-            service.saveReservaHotel(reserva);
+            hotel.getReservas().add(reserva);
+            usuario.getReserva().add(reserva);
+            service.saveReserva(reserva);
+
             return "minha-reserva?faces-redirect=true";
         }
         return null;
@@ -130,6 +169,14 @@ public class ReservaBean {
 
     public Hotel getHotel() {
         return hotel;
+    }
+
+    public Reserva getNovaReserva() {
+        return novaReserva;
+    }
+
+    public void setNovaReserva(Reserva novaReserva) {
+        this.novaReserva = novaReserva;
     }
 
     public int getQtdTotal() {
@@ -161,10 +208,13 @@ public class ReservaBean {
     }
 
 
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
 
-
-
-
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
+    }
 
     public Usuario getUsuario() {
         return usuario;
@@ -188,6 +238,14 @@ public class ReservaBean {
 
     public void setInvalidDates(List<Date> invalidDates) {
         this.invalidDates = invalidDates;
+    }
+
+    public String getEnderecoCompleto() {
+        return enderecoCompleto;
+    }
+
+    public void setEnderecoCompleto(String enderecoCompleto) {
+        this.enderecoCompleto = enderecoCompleto;
     }
 
     public List<Integer> getInvalidDays() {

@@ -3,94 +3,104 @@ package com.fiap.globalsolution.domain.reserva.entity;
 import com.fiap.globalsolution.domain.hotel.entity.Hotel;
 import com.fiap.globalsolution.domain.usuario.entity.Usuario;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import javax.persistence.*;
 
 @Entity
-@Table(name="tb_reserva")
-public class Reserva implements Serializable {
+@Table(name="TB_GS_RESERVA")
+public class Reserva {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@Column(name = "id_reserva")
+	@GeneratedValue(generator = "gs_reserva",strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @Column(name = "vl_preco_total")
-    private Double precoTotal;
+	@Column(name="vl_preco_total")
+	private Double precoTotal;
 
-    @Column(name = "dt_entrada")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar entrada;
+	@Column(name="dt_entrada")
+	@Temporal(TemporalType.DATE)
+	private Calendar entrada;
 
-    @Column(name = "dt_saida")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar saida;
+	@Column(name="dt_saida")
+	@Temporal(TemporalType.DATE)
+	private Calendar saida;
 
-    @OneToMany(mappedBy = "reserva", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Hotel> hotel = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name = "id_usuario")
+	private Usuario usuario;
 
-    @ManyToOne()
-    private Usuario usuario;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_hotel")
+	private Hotel hotel;
 
-    public Reserva(Integer id, Double precoTotal, Calendar entrada, Calendar saida) {
-        this.id = id;
-        this.precoTotal = precoTotal;
-        this.entrada = entrada;
-        this.saida = saida;
-    }
+	public Reserva() {}
 
-    public List<Hotel> getHotel() {
-        return hotel;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setHotel(List<Hotel> hotel) {
-        this.hotel = hotel;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Reserva() {
-    }
+	public Reserva(Double precoTotal, Calendar entrada, Calendar saida) {
+		super();
+		this.precoTotal = precoTotal;
+		this.entrada = entrada;
+		this.saida = saida;
+	}
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Usuario getUsuario() {
+		return usuario;
+	}
 
-    public Double getPrecoTotal() {
-        return precoTotal;
-    }
 
-    public void setPrecoTotal(Double precoTotal) {
-        this.precoTotal = precoTotal;
-    }
 
-    public Calendar getEntrada() {
-        return entrada;
-    }
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
-    public void setEntrada(Calendar entrada) {
-        this.entrada = entrada;
-    }
 
-    public Calendar getSaida() {
-        return saida;
-    }
+	public Hotel getHotel() {
+		return hotel;
+	}
 
-    public void setSaida(Calendar saida) {
-        this.saida = saida;
-    }
+
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
+
+
+
+	public Double getPrecoTotal() {
+		return precoTotal;
+	}
+
+	public void setPrecoTotal(Double precoTotal) {
+		this.precoTotal = precoTotal;
+	}
+
+	public Calendar getEntrada() {
+		return entrada;
+	}
+
+	public void setEntrada(Calendar entrada) {
+		this.entrada = entrada;
+	}
+
+	public Calendar getSaida() {
+		return saida;
+	}
+
+	public void setSaida(Calendar saida) {
+		this.saida = saida;
+	}
+
 
 
 }

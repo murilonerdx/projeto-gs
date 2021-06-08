@@ -48,6 +48,7 @@
           <element id="library" level="project" name="Maven: org.glassfish.jaxb:txw2:2.3.1" />
           <element id="library" level="project" name="Maven: com.sun.istack:istack-commons-runtime:3.0.7" />
           <element id="library" level="project" name="Maven: org.jvnet.staxex:stax-ex:1.8" />
+          <element id="library" level="project" name="Maven: joda-time:joda-time:2.10.10" />
         </element>
       </element>
       <element id="directory" name="META-INF">

@@ -1,7 +1,7 @@
 package com.fiap.globalsolution.domain.usuario.dao;
 
-import com.fiap.globalsolution.singleton.EntityManagerFacade;
 import com.fiap.globalsolution.domain.usuario.entity.Usuario;
+import com.fiap.globalsolution.singleton.EntityManagerFacade;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;

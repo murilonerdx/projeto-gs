@@ -1,109 +1,159 @@
 package com.fiap.globalsolution.domain.hotel.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fiap.globalsolution.domain.enums.Preco;
+import com.fiap.globalsolution.domain.dica.entity.Dica;
+import com.fiap.globalsolution.domain.endereco.entity.Endereco;
 import com.fiap.globalsolution.domain.reserva.entity.Reserva;
-import com.fiap.globalsolution.domain.usuario.entity.Usuario;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.*;
+
 @Entity
-@Table(name = "tb_hotel")
-public class Hotel implements Serializable {
+@Table(name = "TB_GS_HOTEL")
+public class Hotel {
+
     @Id
+    @Column(name = "id_hotel")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
-    private String localization;
-    @Column(length = 450)
-    private String description;
-    @Column(length = 250)
-    private String image;
-    private double price;
-    private String city;
-    private String linkHotel;
 
-    @ManyToOne()
-    private Usuario usuario;
+    @Column(name = "nm_hotel")
+    private String nome;
 
-    @ManyToOne
-    private Reserva reserva;
+    @Column(name = "ft_hotel", length = 255)
+    private String foto;
 
-    @Transient
-    @JsonIgnore
-    private Preco priceHigth;
+    @Column(name = "vl_preco")
+    private Double preco;
+
+    @Column(name = "ds_descricao", length = 455)
+    private String descricao;
+
+    @Column(name = "nr_rating")
     private int rating;
 
-    public Hotel(Integer id, String name, String localization, String image, double price, String city, Preco priceHigth, int rating, String linkHotel, String description) {
-        this.id = id;
-        this.name = name;
-        this.localization = localization;
-        this.image = image;
-        this.price = price;
-        this.city = city;
-        this.linkHotel = linkHotel;
-        this.priceHigth = priceHigth;
+    @Column(name = "ds_link", length = 255)
+    private String link;
+
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
+    private List<Reserva> reservas = new ArrayList<>();
+
+    public void addReserva(Reserva reserva) {
+        if (reserva == null)
+            reservas = new ArrayList<>();
+        //Adicionar o aluno no grupo (Lista)
+        reservas.add(reserva);
+        //Setar o grupo no aluno (Mapeia a FK, para inserir no banco)
+        reserva.setHotel(this); //this referência ao próprio objeto
+    }
+
+
+    @JoinColumn(name="id_endereco")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Endereco endereco;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_dica")
+    private Dica dica;
+
+    public Hotel() {
+    }
+
+
+    public Hotel(String nome, Endereco endereco, String foto, Double preco,int rating, String link, String descricao,  Dica dica) {
+        super();
+        this.nome = nome;
+        this.foto = foto;
+        this.preco = preco;
+        this.descricao = descricao;
         this.rating = rating;
-        this.description = description;
+        this.link = link;
+        this.endereco = endereco;
+        this.dica = dica;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public List<Reserva> getReservas() {
+        return reservas;
     }
 
 
-    public Reserva getReserva() throws ParseException {
-        return reserva;
-    }
-
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
     }
 
 
-    public Preco getPriceHigth() {
-        return priceHigth;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setPriceHigth(Preco priceHigth) {
-        this.priceHigth = priceHigth;
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
-    public int getRating() {
-        return rating;
+
+    public Dica getDica() {
+        return dica;
     }
+
+
+    public void setDica(Dica dica) {
+        this.dica = dica;
+    }
+
 
     public void setRating(int rating) {
         this.rating = rating;
     }
 
-    public Hotel() {
+
+    public int getRating() {
+        return rating;
     }
 
-    public String getLinkHotel() {
-        return linkHotel;
+    public void setRatiing(int ratiing) {
+        this.rating = ratiing;
     }
 
-    public void setLinkHotel(String linkHotel) {
-        this.linkHotel = linkHotel;
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public Integer getId() {
@@ -114,43 +164,5 @@ public class Hotel implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLocalization() {
-        return localization;
-    }
-
-    public void setLocalization(String description) {
-        this.localization = description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String category) {
-        this.city = category;
-    }
 }

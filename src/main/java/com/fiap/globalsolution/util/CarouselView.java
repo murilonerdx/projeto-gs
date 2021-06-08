@@ -7,6 +7,7 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -20,7 +21,11 @@ public class CarouselView implements Serializable {
 
     @PostConstruct
     public void init() {
-        this.hotels = service.getHotels(9);
+        try{
+            this.hotels = service.getHotels(9);
+        }catch(RuntimeException e){
+            this.hotels = new ArrayList<>();
+        }
     }
 
     public List<Hotel> getHotels() {

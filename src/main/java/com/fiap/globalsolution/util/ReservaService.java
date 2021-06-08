@@ -1,17 +1,11 @@
 package com.fiap.globalsolution.util;
 
-import com.fiap.globalsolution.domain.hotel.entity.Hotel;
 import com.fiap.globalsolution.domain.reserva.dao.ReservaDao;
 import com.fiap.globalsolution.domain.reserva.entity.Reserva;
-import com.fiap.globalsolution.domain.usuario.dao.UsuarioDao;
-import com.fiap.globalsolution.domain.usuario.entity.Usuario;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.Calendar;
 import java.util.List;
 
 @Named
@@ -28,8 +22,12 @@ public class ReservaService {
         qtdReservas = reservaDao.searchByName(nomeHotel);
     }
 
-    public void saveReservaHotel(Reserva reserva){
+    public void saveReserva(Reserva reserva){
         reservaDao.save(reserva);
+    }
+
+    public void updateReserva(Reserva reserva){
+        reservaDao.update(reserva);
     }
 
     public void deleteReserva(Integer id){
@@ -40,9 +38,10 @@ public class ReservaService {
         return reservaDao.searchByName(name);
     }
 
-    public List<Hotel> getMyReservas(String email){
-        return reservaDao.getAllMyReservas(email);
+    public List<Reserva> getMyReservas(Integer id){
+        return reservaDao.getAllMyReservas(id);
     }
+
 
     public ReservaDao getReservaDao() {
         return reservaDao;

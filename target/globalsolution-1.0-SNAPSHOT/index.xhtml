@@ -45,25 +45,23 @@
                                         <div class="card"
                                              style="margin: 5px;box-shadow: 2px 2px 7px rgba(33,37,41,0.19);">
                                             <img class="card-img-top d-block"
-                                                 src="#{hotel.image}" width="200px"
+                                                 src="#{hotel.foto}" width="200px"
                                                  height="200px"
                                                  alt="Image"/>
                                             <div class="card-body">
                                                 <div style="margin-bottom: 10px;">
-                                                    <h4 style="margin-bottom: 0px;">#{hotel.name}</h4>
+                                                    <h4 style="margin-bottom: 0px;">#{hotel.nome}</h4>
 
                                                 </div>
                                                 <div class="rating"><p:rating readonly="true" value="#{hotel.rating}"
                                                                               style="margin: 15px;"/></div>
                                                 <div>
                                                     <div>
-                                                        <span style="font-size: 16px;">#{hotel.description}</span>
+                                                        <span style="font-size: 16px;">#{hotel.descricao}</span>
                                                     </div>
-                                                    <span class="color-#{hotel.priceHigth.name().toLowerCase()}"
-                                                          style="font-size: 20px;">#{hotel.priceHigth.text}</span>
                                                     <h5 style="margin-top: 35px;">Diárias a partir de</h5><span
                                                         style="font-size: 20px;">R$&nbsp;<span
-                                                        style="font-size: 40px;"><strong>#{hotel.price}</strong></span></span>
+                                                        style="font-size: 40px;"><strong>#{hotel.preco}</strong></span></span>
                                                 </div>
 
                                                 <p:commandButton value="Reservar hotel" action="/hotel-reserva?faces-redirect=true" icon="pi pi-map"
