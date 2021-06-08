@@ -1,6 +1,8 @@
 package com.fiap.globalsolution.domain.dica.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fiap.globalsolution.domain.hotel.entity.Hotel;
 import com.fiap.globalsolution.domain.enums.Idioma;
 
@@ -8,6 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="TB_GS_DICA")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Dica {
 
 	@Id
@@ -49,6 +52,7 @@ public class Dica {
 	@Column(name="ds_locomocao")
 	private String locomocao;
 
+	@JsonIgnore
 	@OneToOne(mappedBy = "dica", cascade = CascadeType.PERSIST)
 	private Hotel hotel;
 

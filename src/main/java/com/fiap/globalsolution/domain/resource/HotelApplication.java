@@ -1,4 +1,4 @@
-package com.fiap.globalsolution.domain.hotel.resource;
+package com.fiap.globalsolution.domain.resource;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

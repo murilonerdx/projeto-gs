@@ -1,8 +1,10 @@
-package com.fiap.globalsolution.domain.hotel.resource;
+package com.fiap.globalsolution.domain.resource;
 
 import com.fiap.globalsolution.domain.hotel.dao.HotelDao;
+import com.fiap.globalsolution.domain.hotel.dto.HotelDTO;
 import com.fiap.globalsolution.domain.hotel.entity.Hotel;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -10,13 +12,19 @@ import java.util.List;
 
 @Path("/hotels")
 public class HotelResource {
-    private HotelDao dao = new HotelDao();
+
+    @Inject
+    private HotelDao dao;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Hotel> getAll() {
-        return dao.getAll();
+    @Produces("application/json")
+    public Response getAll() {
+        List<Hotel> lista = dao.getAll();
+//        List<HotelDTO> listaDTO = dao.updateData(lista);
+        return Response.ok(lista).type(MediaType.APPLICATION_JSON_TYPE).build();
     }
+
+
 
     @GET
     @Path("/{id}")
@@ -54,5 +62,6 @@ public class HotelResource {
         dao.delete(id);
         return Response.status(Response.Status.ACCEPTED).build();
     }
+
 
 }

@@ -151,6 +151,7 @@ public class ReservaBean {
             hotelAtivo.setDescricao(hotel.getDescricao());
             hotelAtivo.setDica(hotel.getDica());
             hotelAtivo.setLink(hotel.getLink());
+            hotelAtivo.setFoto(hotel.getFoto());
             hotelAtivo.setNome(hotel.getNome());
             hotelAtivo.setPreco(hotel.getPreco());
             hotelAtivo.setRating(hotel.getRating());

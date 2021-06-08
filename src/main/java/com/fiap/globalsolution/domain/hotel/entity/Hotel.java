@@ -1,5 +1,7 @@
 package com.fiap.globalsolution.domain.hotel.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fiap.globalsolution.domain.dica.entity.Dica;
 import com.fiap.globalsolution.domain.endereco.entity.Endereco;
 import com.fiap.globalsolution.domain.reserva.entity.Reserva;
@@ -11,6 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TB_GS_HOTEL")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Hotel {
 
     @Id
@@ -36,21 +39,12 @@ public class Hotel {
     @Column(name = "ds_link", length = 255)
     private String link;
 
-    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Reserva> reservas = new ArrayList<>();
 
-    public void addReserva(Reserva reserva) {
-        if (reserva == null)
-            reservas = new ArrayList<>();
-        //Adicionar o aluno no grupo (Lista)
-        reservas.add(reserva);
-        //Setar o grupo no aluno (Mapeia a FK, para inserir no banco)
-        reserva.setHotel(this); //this referência ao próprio objeto
-    }
-
-
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_endereco")
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Endereco endereco;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -1,5 +1,7 @@
 package com.fiap.globalsolution.domain.reserva.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fiap.globalsolution.domain.hotel.entity.Hotel;
 import com.fiap.globalsolution.domain.usuario.entity.Usuario;
 
@@ -8,6 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="TB_GS_RESERVA")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Reserva {
 
 	@Id
@@ -27,6 +30,7 @@ public class Reserva {
 	private Calendar saida;
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 

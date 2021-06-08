@@ -23,8 +23,8 @@ public class HotelService {
 
     @PostConstruct
     public void init() {
+        //Adicionar todos os hotels, verificar se já existe algum hotel, caso não exista ele executar o script de adicionar hotel, caso exista, ele vai fazer um get all no banco com os hotels
         hotels = new ArrayList<>();
-        HotelDao dao = new HotelDao();
 
         //IBIS Styles São Paulo Anhembi
         //"Av. Cruzeiro do Sul, 1709 - Santana, São Paulo - SP, 02031-000"

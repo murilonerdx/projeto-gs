@@ -1,5 +1,7 @@
 package com.fiap.globalsolution.domain.usuario.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fiap.globalsolution.domain.endereco.entity.Endereco;
 import com.fiap.globalsolution.domain.reserva.entity.Reserva;
 
@@ -11,6 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TB_GS_USUARIO")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Usuario {
 
     @Id
@@ -31,6 +34,7 @@ public class Usuario {
     @Column(name = "dt_nascimento")
     private Calendar dataNascimento;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Reserva> reservas = new ArrayList<>();
 

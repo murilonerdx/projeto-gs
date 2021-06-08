@@ -1,5 +1,6 @@
 package com.fiap.globalsolution.domain.endereco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fiap.globalsolution.domain.hotel.entity.Hotel;
 import com.fiap.globalsolution.domain.usuario.entity.Usuario;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TB_GS_ENDERECO")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Endereco {
 
     @Id
