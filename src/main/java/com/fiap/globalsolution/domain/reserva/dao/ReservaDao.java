@@ -11,11 +11,11 @@ import java.util.List;
 
 public class ReservaDao {
 
-    private final EntityManager manager = EntityManagerFacade.getEntityManager();
+    private EntityManager manager = EntityManagerFacade.getEntityManager();
 
-    public void save(Reserva hotel) {
+    public void save(Reserva reserva) {
         manager.getTransaction().begin();
-        manager.persist(hotel);
+        manager.merge(reserva);
         manager.getTransaction().commit();
         manager.clear();
     }

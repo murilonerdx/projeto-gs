@@ -34,16 +34,7 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Reserva> reservas = new ArrayList<>();
 
-    public void addReserva(Reserva reserva) {
-        if (reservas == null)
-            reservas = new ArrayList<>();
-        //Adicionar o aluno no grupo (Lista)
-        reservas.add(reserva);
-        //Setar o grupo no aluno (Mapeia a FK, para inserir no banco)
-        reserva.setUsuario(this); //this referência ao próprio objeto
-    }
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne()
     private Endereco endereco;
 
     public Usuario() {

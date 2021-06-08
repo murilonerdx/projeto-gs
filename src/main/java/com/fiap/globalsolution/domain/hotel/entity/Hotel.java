@@ -50,7 +50,7 @@ public class Hotel {
 
 
     @JoinColumn(name="id_endereco")
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Endereco endereco;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -72,6 +72,8 @@ public class Hotel {
         this.endereco = endereco;
         this.dica = dica;
     }
+
+
 
     public String getLink() {
         return link;

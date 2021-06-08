@@ -12,7 +12,7 @@ public class Reserva {
 
 	@Id
 	@Column(name = "id_reserva")
-	@GeneratedValue(generator = "gs_reserva",strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(name="vl_preco_total")

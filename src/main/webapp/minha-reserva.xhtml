@@ -73,7 +73,7 @@
                                         <f:facet name="header">
                                             <h:outputText value="Ações"/>
                                         </f:facet>
-                                        <h:commandButton value="Deletar" class="btn btn-secondary d-block w-100" actionListener="#{reservaLista.deletarReserva(reserva.hotel.id)}"/>
+                                        <h:commandButton value="Deletar" class="btn btn-secondary d-block w-100" actionListener="#{reservaLista.deletarReserva(reserva.id)}"/>
                                         <p:commandButton value="Editar" class="btn btn-warning d-block w-100" action="/hotel-reserva-editar?faces-redirect=true"
                                                          style="margin-top: 10px">
                                             <f:setPropertyActionListener target="#{flash.hotel}"

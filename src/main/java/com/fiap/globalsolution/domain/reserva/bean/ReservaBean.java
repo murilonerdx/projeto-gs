@@ -25,23 +25,12 @@ public class ReservaBean {
 
     @Inject
     private Usuario usuario;
+
     @Inject
     private Reserva reserva;
 
-    private List<Date> invalidDates;
-
-    private List<Integer> invalidDays;
-    private Date minDate;
-    private Date maxDate;
-    private Date minTime;
-    private Date maxTime;
-    private Date minDateTime;
-    private Date maxDateTime;
 
     List<Reserva> reservas;
-
-    private Date dateDe;
-    private Date dateTimeDe;
 
     private int qtdDias;
 
@@ -53,6 +42,7 @@ public class ReservaBean {
 
     private Hotel hotel;
 
+    private Hotel hotelAtivo;
 
     private int qtdTotal;
 
@@ -63,12 +53,20 @@ public class ReservaBean {
 
     @PostConstruct
     public void init() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
-        usuario = (Usuario) sessionMap.get("usuario");
-        hotel = (Hotel) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("hotel");
-        qtdTotal = service.getQtdReservas(hotel.getNome());
-        linkApi = apiLink();
+        try {
+            hotelAtivo = new Hotel();
+            FacesContext context = FacesContext.getCurrentInstance();
+            Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
+            usuario = (Usuario) sessionMap.get("usuario");
+            hotel = (Hotel) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("hotel");
+            qtdTotal = service.getQtdReservas(hotel.getNome());
+            linkApi = apiLink();
+        } catch (RuntimeException e) {
+            hotel = null;
+            qtdTotal = 0;
+            linkApi = null;
+        }
+
     }
 
     public String apiLink() {
@@ -107,9 +105,12 @@ public class ReservaBean {
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Digite uma data valida", "Error when registering"));
         } else {
             //TODO: Fazer modificação para pegar id da reserva
+            reserva.setId(hotel.getReservas().get(0).getId());
             reserva.setEntrada(dt1);
             reserva.setSaida(dt2);
             reserva.setPrecoTotal(precoTotal);
+            reserva.setUsuario(usuario);
+            reserva.setHotel(hotel);
             service.updateReserva(reserva);
             return "minha-reserva?faces-redirect=true";
         }
@@ -118,10 +119,7 @@ public class ReservaBean {
     }
 
     public String salvarReserva() throws ParseException {
-
-
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
 
         String dataInicial1 = sdf.format(dataInicial.getTime());
         String dataFinal1 = sdf.format(dataFinal.getTime());
@@ -138,25 +136,51 @@ public class ReservaBean {
 
         precoTotal = DataUtil.calculaDias(dt1, dt2, hotel.getPreco());
 
-        if (getPrecoTotal() < 0) {
+        if (getPrecoTotal() < 0 || dataInicial == null || dataFinal == null) {
             FacesContext.getCurrentInstance()
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Digite uma data valida", "Error when registering"));
-        } else {
+        }else{
 
-
+            hotel.setId(null);
+            hotel.getEndereco().setIdEndereco(null);
+            hotelAtivo.setEndereco(hotel.getEndereco());
+            hotelAtivo.setDescricao(hotel.getDescricao());
+            hotelAtivo.setDica(hotel.getDica());
+            hotelAtivo.setLink(hotel.getLink());
+            hotelAtivo.setNome(hotel.getNome());
+            hotelAtivo.setPreco(hotel.getPreco());
+            hotelAtivo.setRating(hotel.getRating());
+            hotelAtivo.setFoto(hotelAtivo.getFoto());
             reserva.setEntrada(dt1);
             reserva.setSaida(dt2);
             reserva.setPrecoTotal(precoTotal);
-            reserva.setHotel(hotel);
+            reserva.setHotel(hotelAtivo);
             reserva.setUsuario(usuario);
-            hotel.getReservas().add(reserva);
+            hotelAtivo.getReservas().add(reserva);
             usuario.getReserva().add(reserva);
             service.saveReserva(reserva);
-
             return "minha-reserva?faces-redirect=true";
         }
         return null;
 
+    }
+
+    public void calcularReserva() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String dataInicial1 = sdf.format(dataInicial.getTime());
+        String dataFinal1 = sdf.format(dataFinal.getTime());
+
+        Calendar dt1 = Calendar.getInstance();
+        Calendar dt2 = Calendar.getInstance();
+
+        dt1.setTime(sdf.parse(dataInicial1));
+        dt2.setTime(sdf.parse(dataFinal1));
+
+        dt1.add(Calendar.DAY_OF_MONTH, 1);
+        dt2.add(Calendar.DAY_OF_MONTH, 1);
+
+
+        precoTotal = DataUtil.calculaDias(dt1, dt2, hotel.getPreco());
     }
 
     public String getLinkApi() {
@@ -232,14 +256,6 @@ public class ReservaBean {
         this.reserva = reserva;
     }
 
-    public List<Date> getInvalidDates() {
-        return invalidDates;
-    }
-
-    public void setInvalidDates(List<Date> invalidDates) {
-        this.invalidDates = invalidDates;
-    }
-
     public String getEnderecoCompleto() {
         return enderecoCompleto;
     }
@@ -248,77 +264,6 @@ public class ReservaBean {
         this.enderecoCompleto = enderecoCompleto;
     }
 
-    public List<Integer> getInvalidDays() {
-        return invalidDays;
-    }
-
-    public void setInvalidDays(List<Integer> invalidDays) {
-        this.invalidDays = invalidDays;
-    }
-
-    public Date getMinDate() {
-        return minDate;
-    }
-
-    public void setMinDate(Date minDate) {
-        this.minDate = minDate;
-    }
-
-    public Date getMaxDate() {
-        return maxDate;
-    }
-
-    public void setMaxDate(Date maxDate) {
-        this.maxDate = maxDate;
-    }
-
-    public Date getMinTime() {
-        return minTime;
-    }
-
-    public void setMinTime(Date minTime) {
-        this.minTime = minTime;
-    }
-
-    public Date getMaxTime() {
-        return maxTime;
-    }
-
-    public void setMaxTime(Date maxTime) {
-        this.maxTime = maxTime;
-    }
-
-    public Date getMinDateTime() {
-        return minDateTime;
-    }
-
-    public void setMinDateTime(Date minDateTime) {
-        this.minDateTime = minDateTime;
-    }
-
-    public Date getMaxDateTime() {
-        return maxDateTime;
-    }
-
-    public void setMaxDateTime(Date maxDateTime) {
-        this.maxDateTime = maxDateTime;
-    }
-
-    public Date getDateDe() {
-        return dateDe;
-    }
-
-    public void setDateDe(Date dateDe) {
-        this.dateDe = dateDe;
-    }
-
-    public Date getDateTimeDe() {
-        return dateTimeDe;
-    }
-
-    public void setDateTimeDe(Date dateTimeDe) {
-        this.dateTimeDe = dateTimeDe;
-    }
 
     public double getPrecoTotal() {
         return precoTotal;

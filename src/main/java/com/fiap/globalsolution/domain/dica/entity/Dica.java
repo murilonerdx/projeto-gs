@@ -49,7 +49,7 @@ public class Dica {
 	@Column(name="ds_locomocao")
 	private String locomocao;
 
-	@OneToOne(mappedBy = "dica")
+	@OneToOne(mappedBy = "dica", cascade = CascadeType.PERSIST)
 	private Hotel hotel;
 
 	public Dica() {}

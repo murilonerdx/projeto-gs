@@ -4,8 +4,9 @@ import com.fiap.globalsolution.domain.reserva.entity.Reserva;
 import com.fiap.globalsolution.domain.usuario.entity.Usuario;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Reservas {
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
         Usuario user = (Usuario) sessionMap.get("usuario");
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().clear();
         listaReservas = service.getMyReservas(user.getId());
     }
 
@@ -38,7 +40,11 @@ public class Reservas {
     }
 
     public void deletarReserva(Integer id) {
-        service.deleteReserva(id);
-        init();
+        try{
+            service.deleteReserva(id);
+            init();
+        }catch(RuntimeException e){
+            e.printStackTrace();
+        }
     }
 }
